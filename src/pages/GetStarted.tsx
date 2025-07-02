@@ -17,20 +17,15 @@ import {
   Phone,
   Globe
 } from 'lucide-react';
+import { StripeCheckout } from '../components/StripeCheckout';
+import { useAuth } from '../hooks/useAuth';
 
 function GetStarted() {
   const [selectedPlan, setSelectedPlan] = useState('professional');
   const [organizationType, setOrganizationType] = useState('');
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    organization: '',
-    phone: '',
-    website: '',
-    teamSize: '',
-    primaryGoal: ''
-  });
+  const [showCheckout, setShowCheckout] = useState(false);
+  const [checkoutMessage, setCheckoutMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const { user } = useAuth();
 
   const plans = [
     {
@@ -104,16 +99,12 @@ function GetStarted() {
     { id: 'advocacy', label: 'Advocacy Group', icon: Megaphone }
   ];
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+  const handleCheckoutSuccess = () => {
+    setCheckoutMessage({ type: 'success', text: 'Redirecting to checkout...' });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Form submitted:', { ...formData, organizationType, selectedPlan });
+  const handleCheckoutError = (error: string) => {
+    setCheckoutMessage({ type: 'error', text: error });
   };
 
   return (
@@ -154,6 +145,34 @@ function GetStarted() {
           </div>
         </div>
       </section>
+
+      {/* Authentication Notice */}
+      {!user && (
+        <section className="py-12 bg-yellow-50 border-b border-yellow-200">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 className="text-2xl font-bold text-yellow-800 mb-4">
+              Ready to Get Started?
+            </h2>
+            <p className="text-yellow-700 mb-6">
+              Create an account or sign in to access our platform and start your subscription.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link 
+                to="/signup"
+                className="bg-act-teal-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-act-teal-700 transition-colors"
+              >
+                Create Account
+              </Link>
+              <Link 
+                to="/login"
+                className="border border-act-teal-600 text-act-teal-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors"
+              >
+                Sign In
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Pricing Plans */}
       <section className="py-20 bg-white">
@@ -217,6 +236,14 @@ function GetStarted() {
                 </ul>
 
                 <button 
+                  onClick={() => {
+                    if (plan.id === 'professional' && user) {
+                      setShowCheckout(true);
+                    } else if (!user) {
+                      // Redirect to signup for non-authenticated users
+                      window.location.href = '/signup';
+                    }
+                  }}
                   className={`w-full py-3 px-6 rounded-lg font-semibold transition-colors ${
                     plan.popular 
                       ? 'bg-white text-act-teal-600 hover:bg-gray-100' 
@@ -230,6 +257,39 @@ function GetStarted() {
           </div>
         </div>
       </section>
+
+      {/* Stripe Checkout Section */}
+      {user && showCheckout && (
+        <section className="py-20 bg-gray-50">
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="bg-white rounded-2xl p-8 shadow-lg">
+              <div className="text-center mb-8">
+                <h2 className="text-3xl font-bold text-gray-900 mb-4">
+                  Complete Your Subscription
+                </h2>
+                <p className="text-gray-600">
+                  Choose your subscription plan and start organizing today.
+                </p>
+              </div>
+
+              {checkoutMessage && (
+                <div className={`mb-6 p-4 rounded-lg ${
+                  checkoutMessage.type === 'success' 
+                    ? 'bg-green-50 border border-green-200 text-green-800' 
+                    : 'bg-red-50 border border-red-200 text-red-800'
+                }`}>
+                  {checkoutMessage.text}
+                </div>
+              )}
+
+              <StripeCheckout 
+                onSuccess={handleCheckoutSuccess}
+                onError={handleCheckoutError}
+              />
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Organization Type Selection */}
       <section className="py-20 bg-gray-50">
@@ -268,174 +328,8 @@ function GetStarted() {
         </div>
       </section>
 
-      {/* Sign Up Form */}
-      <section className="py-20 bg-white">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Create Your Account
-            </h2>
-            <p className="text-xl text-gray-600">
-              Just a few details to get you started with ACTTogether.us.
-            </p>
-          </div>
-
-          <form onSubmit={handleSubmit} className="bg-gray-50 rounded-2xl p-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-              <div>
-                <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-2">
-                  First Name *
-                </label>
-                <input
-                  type="text"
-                  id="firstName"
-                  name="firstName"
-                  required
-                  value={formData.firstName}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-act-teal-500 focus:border-transparent"
-                />
-              </div>
-              <div>
-                <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-2">
-                  Last Name *
-                </label>
-                <input
-                  type="text"
-                  id="lastName"
-                  name="lastName"
-                  required
-                  value={formData.lastName}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-act-teal-500 focus:border-transparent"
-                />
-              </div>
-            </div>
-
-            <div className="mb-6">
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                Email Address *
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                required
-                value={formData.email}
-                onChange={handleInputChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-act-teal-500 focus:border-transparent"
-              />
-            </div>
-
-            <div className="mb-6">
-              <label htmlFor="organization" className="block text-sm font-medium text-gray-700 mb-2">
-                Organization Name *
-              </label>
-              <input
-                type="text"
-                id="organization"
-                name="organization"
-                required
-                value={formData.organization}
-                onChange={handleInputChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-act-teal-500 focus:border-transparent"
-              />
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-              <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
-                  Phone Number
-                </label>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-act-teal-500 focus:border-transparent"
-                />
-              </div>
-              <div>
-                <label htmlFor="website" className="block text-sm font-medium text-gray-700 mb-2">
-                  Website
-                </label>
-                <input
-                  type="url"
-                  id="website"
-                  name="website"
-                  value={formData.website}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-act-teal-500 focus:border-transparent"
-                />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-              <div>
-                <label htmlFor="teamSize" className="block text-sm font-medium text-gray-700 mb-2">
-                  Team Size
-                </label>
-                <select
-                  id="teamSize"
-                  name="teamSize"
-                  value={formData.teamSize}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-act-teal-500 focus:border-transparent"
-                >
-                  <option value="">Select team size</option>
-                  <option value="1-5">1-5 people</option>
-                  <option value="6-20">6-20 people</option>
-                  <option value="21-50">21-50 people</option>
-                  <option value="51-100">51-100 people</option>
-                  <option value="100+">100+ people</option>
-                </select>
-              </div>
-              <div>
-                <label htmlFor="primaryGoal" className="block text-sm font-medium text-gray-700 mb-2">
-                  Primary Goal
-                </label>
-                <select
-                  id="primaryGoal"
-                  name="primaryGoal"
-                  value={formData.primaryGoal}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-act-teal-500 focus:border-transparent"
-                >
-                  <option value="">Select primary goal</option>
-                  <option value="volunteer-management">Volunteer Management</option>
-                  <option value="event-organization">Event Organization</option>
-                  <option value="supporter-engagement">Supporter Engagement</option>
-                  <option value="campaign-coordination">Campaign Coordination</option>
-                  <option value="advocacy-campaigns">Advocacy Campaigns</option>
-                </select>
-              </div>
-            </div>
-
-            <button
-              type="submit"
-              className="w-full bg-act-teal-600 text-white py-4 px-6 rounded-lg font-semibold hover:bg-act-teal-700 transition-colors flex items-center justify-center space-x-2"
-            >
-              <span>Create Account & Start Trial</span>
-              <ArrowRight className="h-5 w-5" />
-            </button>
-
-            <p className="text-gray-600 text-sm text-center mt-4">
-              By creating an account, you agree to our{' '}
-              <Link to="/terms" className="text-act-teal-600 hover:text-act-teal-700">
-                Terms of Service
-              </Link>{' '}
-              and{' '}
-              <Link to="/privacy" className="text-act-teal-600 hover:text-act-teal-700">
-                Privacy Policy
-              </Link>
-            </p>
-          </form>
-        </div>
-      </section>
-
       {/* What Happens Next */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">

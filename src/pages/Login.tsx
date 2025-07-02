@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { 
   Mail,
   Lock,
@@ -8,19 +8,55 @@ import {
   ArrowRight,
   Shield,
   Users,
-  Zap
+  Zap,
+  AlertCircle,
+  CheckCircle
 } from 'lucide-react';
+import { supabase } from '../lib/supabase';
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle login logic here
-    console.log('Login attempt:', { email, password, rememberMe });
+    setLoading(true);
+    setMessage(null);
+
+    try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (error) {
+        throw error;
+      }
+
+      if (data.user) {
+        setMessage({ 
+          type: 'success', 
+          text: 'Successfully logged in!' 
+        });
+        
+        // Redirect to home page after successful login
+        setTimeout(() => {
+          navigate('/');
+        }, 1000);
+      }
+    } catch (error: any) {
+      setMessage({ 
+        type: 'error', 
+        text: error.message || 'An error occurred during login' 
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   const benefits = [
@@ -61,6 +97,25 @@ function Login() {
               Sign in to your ACTTogether.us account to continue organizing.
             </p>
           </div>
+
+          {message && (
+            <div className={`mb-6 p-4 rounded-lg flex items-center space-x-3 ${
+              message.type === 'success' 
+                ? 'bg-green-50 border border-green-200' 
+                : 'bg-red-50 border border-red-200'
+            }`}>
+              {message.type === 'success' ? (
+                <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0" />
+              ) : (
+                <AlertCircle className="h-5 w-5 text-red-600 flex-shrink-0" />
+              )}
+              <p className={`text-sm ${
+                message.type === 'success' ? 'text-green-800' : 'text-red-800'
+              }`}>
+                {message.text}
+              </p>
+            </div>
+          )}
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
@@ -145,42 +200,25 @@ function Login() {
 
             <button
               type="submit"
-              className="w-full bg-act-teal-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-act-teal-700 focus:ring-2 focus:ring-act-teal-500 focus:ring-offset-2 transition-colors flex items-center justify-center space-x-2"
+              disabled={loading}
+              className="w-full bg-act-teal-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-act-teal-700 focus:ring-2 focus:ring-act-teal-500 focus:ring-offset-2 transition-colors flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              <span>Sign in</span>
-              <ArrowRight className="h-4 w-4" />
+              {loading ? (
+                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+              ) : (
+                <>
+                  <span>Sign in</span>
+                  <ArrowRight className="h-4 w-4" />
+                </>
+              )}
             </button>
-
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-300" />
-              </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-gray-50 text-gray-500">Or continue with</span>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-3">
-              <button
-                type="button"
-                className="w-full inline-flex justify-center py-3 px-4 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 transition-colors"
-              >
-                <span>Google</span>
-              </button>
-              <button
-                type="button"
-                className="w-full inline-flex justify-center py-3 px-4 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 transition-colors"
-              >
-                <span>Microsoft</span>
-              </button>
-            </div>
           </form>
 
           <div className="mt-8 text-center">
             <p className="text-gray-600">
               Don't have an account?{' '}
               <Link 
-                to="/get-started" 
+                to="/signup" 
                 className="text-act-teal-600 hover:text-act-teal-700 font-medium"
               >
                 Sign up for free
