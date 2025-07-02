@@ -107,9 +107,9 @@ function App() {
               <div className="flex-shrink-0">
                 <div className="flex items-center space-x-3">
                   <img 
-                    src="/Together copy.png" 
+                    src="/Together.png" 
                     alt="ACTTogether.us" 
-                    className="h-50 w-auto"
+                    className="h-20 w-auto"
                   />
                 </div>
               </div>
@@ -469,9 +469,9 @@ function App() {
             <div>
               <div className="flex items-center space-x-3 mb-4">
                 <img 
-                  src="/Together copy.png" 
+                  src="/Together.png" 
                   alt="ACTTogether.us" 
-                  className="h-40 w-auto brightness-0 invert"
+                  className="h-16 w-auto brightness-0 invert"
                 />
               </div>
               <p className="text-gray-400">
