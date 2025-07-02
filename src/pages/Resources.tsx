@@ -19,6 +19,7 @@ import {
   TrendingUp,
   Zap
 } from 'lucide-react';
+import { NewsletterSignup } from '../components/NewsletterSignup';
 
 function Resources() {
   const [activeCategory, setActiveCategory] = useState('all');
@@ -449,19 +450,12 @@ function Resources() {
 
           <div className="max-w-2xl mx-auto">
             <div className="bg-white rounded-xl p-8">
-              <div className="flex flex-col sm:flex-row gap-4">
-                <input
-                  type="email"
-                  placeholder="Enter your email address"
-                  className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-act-teal-500 focus:border-transparent"
-                />
-                <button className="bg-act-teal-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-act-teal-700 transition-colors">
-                  Subscribe
-                </button>
-              </div>
-              <p className="text-gray-600 text-sm mt-4 text-center">
-                We respect your privacy. Unsubscribe at any time.
-              </p>
+              <NewsletterSignup 
+                source="resources_page"
+                showNames={true}
+                placeholder="Enter your email address"
+                buttonText="Subscribe"
+              />
             </div>
           </div>
         </div>
