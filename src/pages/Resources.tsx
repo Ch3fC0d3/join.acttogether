@@ -43,18 +43,20 @@ function Resources() {
       duration: '15 min read',
       icon: BookOpen,
       featured: true,
-      tags: ['volunteers', 'recruitment', 'nonprofits']
+      tags: ['volunteers', 'recruitment', 'nonprofits'],
+      downloadUrl: '/ACTTogether_Volunteer_Recruitment_Guide.pdf'
     },
     {
       id: 2,
       title: 'Maximizing Event Attendance: Best Practices',
       description: 'Discover how to reduce no-shows and increase engagement at your events.',
-      category: 'webinars',
-      type: 'Webinar',
-      duration: '45 min',
-      icon: Video,
+      category: 'guides',
+      type: 'Guide',
+      duration: '10 min read',
+      icon: BookOpen,
       featured: true,
-      tags: ['events', 'attendance', 'engagement']
+      tags: ['events', 'attendance', 'engagement'],
+      downloadUrl: '/Maximize event attendance.pdf'
     },
     {
       id: 3,
@@ -165,6 +167,16 @@ function Resources() {
     }
   ];
 
+  const handleResourceAccess = (resource: any) => {
+    if (resource.downloadUrl) {
+      // Open PDF in new tab
+      window.open(resource.downloadUrl, '_blank');
+    } else {
+      // For resources without download URLs, you could implement other actions
+      console.log('Accessing resource:', resource.title);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
@@ -242,6 +254,11 @@ function Resources() {
                         {resource.type}
                       </span>
                       <span className="text-gray-500 text-sm">{resource.duration}</span>
+                      {resource.downloadUrl && (
+                        <span className="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">
+                          PDF
+                        </span>
+                      )}
                     </div>
                     <h3 className="text-lg font-semibold text-gray-900 mb-2">
                       {resource.title}
@@ -258,9 +275,21 @@ function Resources() {
                     </span>
                   ))}
                 </div>
-                <button className="w-full bg-act-teal-600 text-white py-2 rounded-lg font-medium hover:bg-act-teal-700 transition-colors flex items-center justify-center space-x-2">
-                  <span>Access Resource</span>
-                  <ArrowRight className="h-4 w-4" />
+                <button 
+                  onClick={() => handleResourceAccess(resource)}
+                  className="w-full bg-act-teal-600 text-white py-2 rounded-lg font-medium hover:bg-act-teal-700 transition-colors flex items-center justify-center space-x-2"
+                >
+                  {resource.downloadUrl ? (
+                    <>
+                      <Download className="h-4 w-4" />
+                      <span>Download PDF</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>Access Resource</span>
+                      <ArrowRight className="h-4 w-4" />
+                    </>
+                  )}
                 </button>
               </div>
             ))}
@@ -298,6 +327,11 @@ function Resources() {
                           Featured
                         </span>
                       )}
+                      {resource.downloadUrl && (
+                        <span className="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-medium">
+                          PDF
+                        </span>
+                      )}
                     </div>
                     <h3 className="text-lg font-semibold text-gray-900 mb-2">
                       {resource.title}
@@ -312,9 +346,21 @@ function Resources() {
                         </span>
                       ))}
                     </div>
-                    <button className="text-act-teal-600 hover:text-act-teal-700 font-medium flex items-center space-x-2">
-                      <span>Access Resource</span>
-                      <ExternalLink className="h-4 w-4" />
+                    <button 
+                      onClick={() => handleResourceAccess(resource)}
+                      className="text-act-teal-600 hover:text-act-teal-700 font-medium flex items-center space-x-2"
+                    >
+                      {resource.downloadUrl ? (
+                        <>
+                          <Download className="h-4 w-4" />
+                          <span>Download PDF</span>
+                        </>
+                      ) : (
+                        <>
+                          <span>Access Resource</span>
+                          <ExternalLink className="h-4 w-4" />
+                        </>
+                      )}
                     </button>
                   </div>
                 </div>
