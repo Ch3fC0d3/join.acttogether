@@ -81,6 +81,24 @@ function App() {
 
   return (
     <div className="min-h-screen bg-white">
+      {/* Decorative Background Shapes */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        {/* Large circle - top right */}
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-purple-200 to-blue-200 rounded-full opacity-30"></div>
+        
+        {/* Medium circle - middle left */}
+        <div className="absolute top-1/2 -left-32 w-64 h-64 bg-gradient-to-br from-teal-200 to-green-200 rounded-full opacity-25"></div>
+        
+        {/* Small circle - bottom right */}
+        <div className="absolute bottom-20 right-20 w-32 h-32 bg-gradient-to-br from-yellow-200 to-orange-200 rounded-full opacity-20"></div>
+        
+        {/* Triangle shape - top left */}
+        <div className="absolute top-20 left-20 w-0 h-0 border-l-[60px] border-r-[60px] border-b-[100px] border-l-transparent border-r-transparent border-b-purple-200 opacity-20 rotate-12"></div>
+        
+        {/* Rectangle - middle right */}
+        <div className="absolute top-1/3 right-10 w-24 h-40 bg-gradient-to-b from-blue-200 to-teal-200 rounded-lg opacity-15 rotate-45"></div>
+      </div>
+
       {/* Navigation */}
       <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -89,7 +107,7 @@ function App() {
               <div className="flex-shrink-0">
                 <div className="flex items-center space-x-3">
                   <img 
-                    src="/Together.png" 
+                    src="/Together copy.png" 
                     alt="ACTTogether.us" 
                     className="h-10 w-auto"
                   />
@@ -165,7 +183,7 @@ function App() {
       </nav>
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-gray-50 to-blue-50 py-20">
+      <section className="bg-gradient-to-br from-gray-50 to-blue-50 py-20 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
@@ -216,7 +234,7 @@ function App() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-white relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {stats.map((stat, index) => (
@@ -230,7 +248,7 @@ function App() {
       </section>
 
       {/* Get Started Section */}
-      <section id="get-started" className="py-20 bg-act-teal-600">
+      <section id="get-started" className="py-20 bg-act-teal-600 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
             Ready to get started?
@@ -270,7 +288,7 @@ function App() {
       </section>
 
       {/* Platform Features */}
-      <section id="platform" className="py-20 bg-gray-50">
+      <section id="platform" className="py-20 bg-gray-50 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
@@ -320,7 +338,7 @@ function App() {
       </section>
 
       {/* Solutions Section */}
-      <section id="solutions" className="py-20 bg-white">
+      <section id="solutions" className="py-20 bg-white relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
@@ -380,7 +398,7 @@ function App() {
       </section>
 
       {/* Why ACTTogether Section */}
-      <section id="why" className="py-20 bg-gradient-to-br from-blue-50 to-gray-50">
+      <section id="why" className="py-20 bg-gradient-to-br from-blue-50 to-gray-50 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
@@ -420,7 +438,7 @@ function App() {
       </section>
 
       {/* About Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-white relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
@@ -445,13 +463,13 @@ function App() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-16">
+      <footer className="bg-gray-900 text-white py-16 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
               <div className="flex items-center space-x-3 mb-4">
                 <img 
-                  src="/Together.png" 
+                  src="/Together copy.png" 
                   alt="ACTTogether.us" 
                   className="h-8 w-auto brightness-0 invert"
                 />
