@@ -102,14 +102,14 @@ function App() {
       {/* Navigation */}
       <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
+          <div className="flex justify-between items-center h-20">
             <div className="flex items-center">
               <div className="flex-shrink-0">
                 <div className="flex items-center space-x-3">
                   <img 
                     src="/Together copy.png" 
                     alt="ACTTogether.us" 
-                    className="h-10 w-auto"
+                    className="h-50 w-auto"
                   />
                 </div>
               </div>
@@ -471,7 +471,7 @@ function App() {
                 <img 
                   src="/Together copy.png" 
                   alt="ACTTogether.us" 
-                  className="h-8 w-auto brightness-0 invert"
+                  className="h-40 w-auto brightness-0 invert"
                 />
               </div>
               <p className="text-gray-400">
