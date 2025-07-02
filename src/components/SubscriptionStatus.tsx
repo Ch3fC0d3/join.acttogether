@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { supabase } from '../lib/supabase';
 import { getProductByPriceId } from '../stripe-config';
-import { CheckCircle, Star, ArrowRight } from 'lucide-react';
+import { CheckCircle, Star, ArrowRight, AlertCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 interface SubscriptionData {
@@ -17,6 +17,7 @@ export function SubscriptionStatus() {
   const [subscription, setSubscription] = useState<SubscriptionData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isCreatingFreeAccount, setIsCreatingFreeAccount] = useState(false);
 
   useEffect(() => {
     if (!user) {
@@ -26,6 +27,61 @@ export function SubscriptionStatus() {
 
     fetchSubscription();
   }, [user]);
+
+  const createFreeAccountForExistingUser = async () => {
+    if (!user) return;
+
+    setIsCreatingFreeAccount(true);
+    try {
+      // Check if customer record exists
+      const { data: existingCustomer } = await supabase
+        .from('stripe_customers')
+        .select('customer_id')
+        .eq('user_id', user.id)
+        .maybeSingle();
+
+      if (!existingCustomer) {
+        // Create customer record
+        const { error: customerError } = await supabase
+          .from('stripe_customers')
+          .insert({
+            user_id: user.id,
+            customer_id: `free_${user.id}`,
+          });
+
+        if (customerError) {
+          throw customerError;
+        }
+      }
+
+      // Create or update subscription record
+      const { error: subscriptionError } = await supabase
+        .from('stripe_subscriptions')
+        .upsert({
+          customer_id: existingCustomer?.customer_id || `free_${user.id}`,
+          subscription_id: null,
+          price_id: 'free_plan',
+          status: 'active',
+          current_period_start: Math.floor(Date.now() / 1000),
+          current_period_end: null,
+          cancel_at_period_end: false,
+        }, {
+          onConflict: 'customer_id'
+        });
+
+      if (subscriptionError) {
+        throw subscriptionError;
+      }
+
+      // Refresh subscription data
+      await fetchSubscription();
+    } catch (err) {
+      console.error('Error creating free account:', err);
+      setError('Failed to activate free account. Please try again.');
+    } finally {
+      setIsCreatingFreeAccount(false);
+    }
+  };
 
   const fetchSubscription = async () => {
     try {
@@ -68,13 +124,19 @@ export function SubscriptionStatus() {
   if (error) {
     return (
       <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-        <p className="text-red-800 text-sm">Error loading subscription: {error}</p>
-        <button 
-          onClick={fetchSubscription}
-          className="mt-2 text-red-600 hover:text-red-700 text-sm underline"
-        >
-          Try again
-        </button>
+        <div className="flex items-start space-x-3">
+          <AlertCircle className="h-5 w-5 text-red-600 mt-0.5 flex-shrink-0" />
+          <div className="flex-1">
+            <p className="text-red-800 text-sm font-medium">Error loading subscription</p>
+            <p className="text-red-700 text-sm mt-1">{error}</p>
+            <button 
+              onClick={fetchSubscription}
+              className="mt-2 text-red-600 hover:text-red-700 text-sm underline"
+            >
+              Try again
+            </button>
+          </div>
+        </div>
       </div>
     );
   }
@@ -83,7 +145,45 @@ export function SubscriptionStatus() {
   const isFreeAccount = subscription?.price_id === 'free_plan';
   const isActiveSubscription = subscription?.subscription_status === 'active';
 
-  if (!subscription || subscription.subscription_status === 'not_started') {
+  // If no subscription data exists, offer to create free account
+  if (!subscription) {
+    return (
+      <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+        <div className="flex justify-between items-start">
+          <div className="flex-1">
+            <div className="flex items-start space-x-3">
+              <AlertCircle className="h-5 w-5 text-yellow-600 mt-0.5 flex-shrink-0" />
+              <div>
+                <h3 className="font-medium text-yellow-800 mb-1">Account Setup Required</h3>
+                <p className="text-yellow-700 text-sm mb-3">
+                  Welcome back! Let's activate your free account to get you started.
+                </p>
+              </div>
+            </div>
+          </div>
+          <button
+            onClick={createFreeAccountForExistingUser}
+            disabled={isCreatingFreeAccount}
+            className="bg-act-teal-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-act-teal-700 transition-colors flex items-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {isCreatingFreeAccount ? (
+              <>
+                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                <span>Setting up...</span>
+              </>
+            ) : (
+              <>
+                <span>Activate Free Account</span>
+                <ArrowRight className="h-4 w-4" />
+              </>
+            )}
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (subscription.subscription_status === 'not_started') {
     return (
       <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
         <div className="flex justify-between items-start">
