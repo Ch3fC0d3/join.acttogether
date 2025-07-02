@@ -289,7 +289,7 @@ function Platform() {
                         to="/get-started"
                         className="bg-act-teal-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-act-teal-700 transition-colors inline-flex items-center space-x-2"
                       >
-                        <span>Schedule Demo</span>
+                        <span>Additional Features</span>
                         <ArrowRight className="h-4 w-4" />
                       </Link>
                     </div>
@@ -408,7 +408,7 @@ function Platform() {
                 Most Popular
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-2">Professional</h3>
-              <div className="text-3xl font-bold text-act-teal-600 mb-4">$99<span className="text-lg text-gray-600">/month</span></div>
+              <div className="text-3xl font-bold text-act-teal-600 mb-4">$9.99 per 1000 members<span className="text-lg text-gray-600">/month</span></div>
               <p className="text-gray-600 mb-6">For growing organizations with regular activities</p>
               <ul className="space-y-3 mb-8">
                 <li className="flex items-center space-x-3">
