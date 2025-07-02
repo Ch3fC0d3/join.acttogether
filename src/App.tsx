@@ -11,6 +11,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import GetStarted from './pages/GetStarted';
 import Success from './pages/Success';
+import HelpCenter from './pages/HelpCenter';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/get-started" element={<GetStarted />} />
         <Route path="/success" element={<Success />} />
+        <Route path="/help" element={<HelpCenter />} />
       </Routes>
     </Layout>
   );

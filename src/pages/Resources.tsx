@@ -140,28 +140,28 @@ function Resources() {
       title: 'Help Center',
       description: 'Find answers to common questions and browse our knowledge base.',
       action: 'Browse Help Center',
-      link: '#'
+      link: '/help'
     },
     {
       icon: Calendar,
       title: 'Training Sessions',
       description: 'Join live training sessions to learn platform features and best practices.',
       action: 'View Schedule',
-      link: '#'
+      link: 'https://acttogether.us'
     },
     {
       icon: Users,
       title: 'Community Forum',
       description: 'Connect with other organizers and share experiences in our community.',
       action: 'Join Community',
-      link: '#'
+      link: '/volunteer'
     },
     {
       icon: Headphones,
       title: 'Direct Support',
       description: 'Get personalized help from our expert support team.',
       action: 'Contact Support',
-      link: '#'
+      link: '/help'
     }
   ];
 
@@ -363,12 +363,23 @@ function Resources() {
                 <p className="text-gray-600 mb-4">
                   {option.description}
                 </p>
-                <Link 
-                  to={option.link}
-                  className="text-act-teal-600 hover:text-act-teal-700 font-medium"
-                >
-                  {option.action} →
-                </Link>
+                {option.link.startsWith('http') ? (
+                  <a 
+                    href={option.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-act-teal-600 hover:text-act-teal-700 font-medium"
+                  >
+                    {option.action} →
+                  </a>
+                ) : (
+                  <Link 
+                    to={option.link}
+                    className="text-act-teal-600 hover:text-act-teal-700 font-medium"
+                  >
+                    {option.action} →
+                  </Link>
+                )}
               </div>
             ))}
           </div>
