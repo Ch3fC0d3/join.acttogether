@@ -79,7 +79,7 @@ function WhyACTTogether() {
       quote: "ACTTogether.us transformed how we coordinate our volunteers. The automated reminders alone saved us 10 hours per week.",
       author: "Sarah Chen",
       title: "Volunteer Coordinator",
-      organization: "Local Food Bank Network"
+      organization: "WeRise"
     },
     {
       quote: "The platform made it easy to coordinate our field operation. We knew exactly who was contacted and when.",
@@ -97,32 +97,32 @@ function WhyACTTogether() {
 
   const timeline = [
     {
-      year: '2019',
+      year: '2024',
       title: 'Founded by Organizers',
       description: 'Started by a team of experienced campaign and nonprofit organizers who saw the need for better tools.'
     },
     {
-      year: '2020',
-      title: 'First 100 Organizations',
+      year: '2025',
+      title: 'First Organizations',
       description: 'Reached our first milestone serving nonprofits and campaigns across the country.'
     },
     {
-      year: '2021',
+      year: '2025',
       title: 'Platform Expansion',
       description: 'Added advanced features like automation, analytics, and integrations based on user feedback.'
     },
     {
-      year: '2022',
+      year: '2025',
       title: 'Union & Advocacy Focus',
       description: 'Expanded to serve unions and advocacy organizations with specialized tools.'
     },
     {
-      year: '2023',
-      title: '500+ Organizations',
+      year: '2025',
+      title: '50+ Organizations',
       description: 'Crossed the milestone of serving over 500 mission-driven organizations.'
     },
     {
-      year: '2024',
+      year: '2025',
       title: 'Enterprise Features',
       description: 'Launched enterprise-grade features for large organizations and coalitions.'
     }
