@@ -47,7 +47,8 @@ function GetStarted() {
         'Standard support response time'
       ],
       cta: 'Start Free',
-      popular: false
+      popular: false,
+      isFree: true
     },
     {
       id: 'professional',
@@ -68,7 +69,8 @@ function GetStarted() {
       ],
       limitations: [],
       cta: 'Start 14-Day Trial',
-      popular: true
+      popular: true,
+      isFree: false
     },
     {
       id: 'enterprise',
@@ -88,7 +90,8 @@ function GetStarted() {
       ],
       limitations: [],
       cta: 'Contact Sales',
-      popular: false
+      popular: false,
+      isFree: false
     }
   ];
 
@@ -105,6 +108,18 @@ function GetStarted() {
 
   const handleCheckoutError = (error: string) => {
     setCheckoutMessage({ type: 'error', text: error });
+  };
+
+  const handlePlanSelection = (plan: any) => {
+    if (plan.isFree) {
+      // For free plan, redirect to signup
+      window.location.href = '/signup';
+    } else if (plan.id === 'professional' && user) {
+      setShowCheckout(true);
+    } else if (!user) {
+      // Redirect to signup for non-authenticated users
+      window.location.href = '/signup';
+    }
   };
 
   return (
@@ -148,20 +163,20 @@ function GetStarted() {
 
       {/* Authentication Notice */}
       {!user && (
-        <section className="py-12 bg-yellow-50 border-b border-yellow-200">
+        <section className="py-12 bg-green-50 border-b border-green-200">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-2xl font-bold text-yellow-800 mb-4">
-              Ready to Get Started?
+            <h2 className="text-2xl font-bold text-green-800 mb-4">
+              Start Free Today!
             </h2>
-            <p className="text-yellow-700 mb-6">
-              Create an account or sign in to access our platform and start your subscription.
+            <p className="text-green-700 mb-6">
+              Create your free account and start organizing immediately. No credit card required.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link 
                 to="/signup"
                 className="bg-act-teal-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-act-teal-700 transition-colors"
               >
-                Create Account
+                Create Free Account
               </Link>
               <Link 
                 to="/login"
@@ -204,6 +219,14 @@ function GetStarted() {
                     </span>
                   </div>
                 )}
+
+                {plan.isFree && (
+                  <div className="text-center mb-4">
+                    <span className="bg-green-400 text-gray-900 px-4 py-1 rounded-full text-sm font-semibold">
+                      Free Forever
+                    </span>
+                  </div>
+                )}
                 
                 <div className="text-center mb-8">
                   <h3 className={`text-2xl font-bold mb-2 ${plan.popular ? 'text-white' : 'text-gray-900'}`}>
@@ -236,14 +259,7 @@ function GetStarted() {
                 </ul>
 
                 <button 
-                  onClick={() => {
-                    if (plan.id === 'professional' && user) {
-                      setShowCheckout(true);
-                    } else if (!user) {
-                      // Redirect to signup for non-authenticated users
-                      window.location.href = '/signup';
-                    }
-                  }}
+                  onClick={() => handlePlanSelection(plan)}
                   className={`w-full py-3 px-6 rounded-lg font-semibold transition-colors ${
                     plan.popular 
                       ? 'bg-white text-act-teal-600 hover:bg-gray-100' 
@@ -349,7 +365,7 @@ function GetStarted() {
                 Account Setup
               </h3>
               <p className="text-gray-600">
-                We'll create your account and send you login credentials immediately.
+                Create your free account and get immediate access to the platform.
               </p>
             </div>
             
@@ -358,10 +374,10 @@ function GetStarted() {
                 2
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-3">
-                Onboarding Call
+                Explore Features
               </h3>
               <p className="text-gray-600">
-                Schedule a personalized onboarding session with our team to get started.
+                Try out our organizing tools with your free account or upgrade for more features.
               </p>
             </div>
             

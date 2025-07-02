@@ -33,6 +33,53 @@ function Signup() {
     });
   };
 
+  const createFreeAccount = async (userId: string, email: string) => {
+    try {
+      // Create Stripe customer for the user
+      const { data: existingCustomer } = await supabase
+        .from('stripe_customers')
+        .select('customer_id')
+        .eq('user_id', userId)
+        .maybeSingle();
+
+      if (!existingCustomer) {
+        // Create a placeholder customer record for free accounts
+        const { error: customerError } = await supabase
+          .from('stripe_customers')
+          .insert({
+            user_id: userId,
+            customer_id: `free_${userId}`, // Placeholder customer ID for free accounts
+          });
+
+        if (customerError) {
+          console.error('Error creating customer record:', customerError);
+          throw new Error('Failed to set up free account');
+        }
+
+        // Create a free subscription record
+        const { error: subscriptionError } = await supabase
+          .from('stripe_subscriptions')
+          .insert({
+            customer_id: `free_${userId}`,
+            subscription_id: null,
+            price_id: 'free_plan',
+            status: 'active', // Free accounts are immediately active
+            current_period_start: Math.floor(Date.now() / 1000),
+            current_period_end: null, // Free accounts don't expire
+            cancel_at_period_end: false,
+          });
+
+        if (subscriptionError) {
+          console.error('Error creating subscription record:', subscriptionError);
+          throw new Error('Failed to set up free subscription');
+        }
+      }
+    } catch (error) {
+      console.error('Error setting up free account:', error);
+      throw error;
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -68,9 +115,12 @@ function Signup() {
       }
 
       if (data.user) {
+        // Set up free account
+        await createFreeAccount(data.user.id, data.user.email!);
+
         setMessage({ 
           type: 'success', 
-          text: 'Account created successfully! You are now logged in.' 
+          text: 'Account created successfully! Your free account is now active.' 
         });
         
         // Redirect to home page after successful signup
@@ -270,7 +320,7 @@ function Signup() {
                 <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
               ) : (
                 <>
-                  <span>Create Account</span>
+                  <span>Create Free Account</span>
                   <ArrowRight className="h-4 w-4" />
                 </>
               )}
