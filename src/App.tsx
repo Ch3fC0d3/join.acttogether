@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Search, MapPin, Calendar, Users, Grid3X3, User, ChevronDown, X } from 'lucide-react';
+import { Search, MapPin, Calendar, Users, Grid3X3, User, ChevronDown, Bell, MessageSquare, X } from 'lucide-react';
 
 function App() {
   const [activeTab, setActiveTab] = useState('events');
+  const [currentPage, setCurrentPage] = useState('home');
 
-  return (
+  const renderHomePage = () => (
     <div className="min-h-screen bg-gray-100 relative overflow-hidden">
       {/* Decorative Background Shapes */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -51,18 +52,30 @@ function App() {
 
             {/* Navigation */}
             <nav className="hidden md:flex space-x-8">
-              <a href="#" className="text-gray-700 hover:text-act-teal-600 px-3 py-2 text-sm font-medium transition-colors">
+              <button 
+                onClick={() => setCurrentPage('search')}
+                className="text-gray-700 hover:text-act-teal-600 px-3 py-2 text-sm font-medium transition-colors"
+              >
                 Search
-              </a>
-              <a href="#" className="text-gray-700 hover:text-act-teal-600 px-3 py-2 text-sm font-medium transition-colors">
+              </button>
+              <button 
+                onClick={() => setCurrentPage('calendar')}
+                className="text-gray-700 hover:text-act-teal-600 px-3 py-2 text-sm font-medium transition-colors"
+              >
                 Calendar <span className="text-xs text-gray-500">(beta)</span>
-              </a>
-              <a href="#" className="text-gray-700 hover:text-act-teal-600 px-3 py-2 text-sm font-medium transition-colors">
+              </button>
+              <button 
+                onClick={() => setCurrentPage('events')}
+                className="text-gray-700 hover:text-act-teal-600 px-3 py-2 text-sm font-medium transition-colors"
+              >
                 My events
-              </a>
-              <a href="#" className="text-gray-700 hover:text-act-teal-600 px-3 py-2 text-sm font-medium transition-colors">
+              </button>
+              <button 
+                onClick={() => setCurrentPage('groups')}
+                className="text-gray-700 hover:text-act-teal-600 px-3 py-2 text-sm font-medium transition-colors"
+              >
                 My groups
-              </a>
+              </button>
             </nav>
 
             {/* Right side icons */}
@@ -150,7 +163,7 @@ function App() {
               <p className="text-gray-600">You have one event in 4 days.</p>
             </div>
             <button className="text-act-teal-600 hover:text-act-teal-700 text-sm font-medium">
-              View everything {'>>'}
+              View everything &gt;&gt;
             </button>
           </div>
 
@@ -168,9 +181,235 @@ function App() {
             </button>
           </div>
         </div>
+
+        {/* Additional Content Sections */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {/* Featured Events */}
+          <div className="bg-white rounded-lg shadow-sm p-6">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Featured Events</h3>
+            <div className="space-y-4">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="border-l-4 border-act-teal-600 pl-4">
+                  <h4 className="font-medium text-gray-900">Community Workshop {i}</h4>
+                  <p className="text-sm text-gray-600">Join us for an engaging session</p>
+                  <p className="text-xs text-gray-500 mt-1">Dec {15 + i}, 2024</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Popular Groups */}
+          <div className="bg-white rounded-lg shadow-sm p-6">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Popular Groups</h3>
+            <div className="space-y-4">
+              {['Climate Action Network', 'Local Volunteers', 'Community Builders'].map((group, i) => (
+                <div key={i} className="flex items-center space-x-3">
+                  <div className="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center text-white text-sm font-semibold">
+                    {group[0]}
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-gray-900">{group}</h4>
+                    <p className="text-xs text-gray-500">{Math.floor(Math.random() * 500) + 100} members</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Recent Activity */}
+          <div className="bg-white rounded-lg shadow-sm p-6">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">Recent Activity</h3>
+            <div className="space-y-4">
+              {[
+                { action: 'joined', item: 'Climate Action Group', time: '2 hours ago' },
+                { action: 'registered for', item: 'Community Workshop', time: '1 day ago' },
+                { action: 'created', item: 'Local Meetup Event', time: '3 days ago' }
+              ].map((activity, i) => (
+                <div key={i} className="text-sm">
+                  <p className="text-gray-900">
+                    You <span className="font-medium">{activity.action}</span> {activity.item}
+                  </p>
+                  <p className="text-gray-500 text-xs">{activity.time}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </main>
     </div>
   );
+
+  const renderSearchPage = () => (
+    <div className="min-h-screen bg-gray-100 p-8">
+      <div className="max-w-4xl mx-auto">
+        <button 
+          onClick={() => setCurrentPage('home')}
+          className="mb-6 text-act-teal-600 hover:text-act-teal-700 flex items-center space-x-2"
+        >
+          <span>← Back to Home</span>
+        </button>
+        <div className="bg-white rounded-lg shadow-sm p-8">
+          <h1 className="text-3xl font-bold text-gray-900 mb-6">Advanced Search</h1>
+          <div className="space-y-6">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Search Keywords</label>
+              <input type="text" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-act-teal-500" />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Location</label>
+              <input type="text" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-act-teal-500" />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Date Range</label>
+              <div className="grid grid-cols-2 gap-4">
+                <input type="date" className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-act-teal-500" />
+                <input type="date" className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-act-teal-500" />
+              </div>
+            </div>
+            <button className="bg-act-teal-600 text-white px-6 py-3 rounded-lg hover:bg-act-teal-700 transition-colors">
+              Search Events & Groups
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderCalendarPage = () => (
+    <div className="min-h-screen bg-gray-100 p-8">
+      <div className="max-w-6xl mx-auto">
+        <button 
+          onClick={() => setCurrentPage('home')}
+          className="mb-6 text-act-teal-600 hover:text-act-teal-700 flex items-center space-x-2"
+        >
+          <span>← Back to Home</span>
+        </button>
+        <div className="bg-white rounded-lg shadow-sm p-8">
+          <div className="flex justify-between items-center mb-6">
+            <h1 className="text-3xl font-bold text-gray-900">Event Calendar <span className="text-sm text-gray-500 font-normal">(beta)</span></h1>
+            <div className="flex space-x-2">
+              <button className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">Month</button>
+              <button className="px-4 py-2 bg-act-teal-600 text-white rounded-lg">Week</button>
+              <button className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">Day</button>
+            </div>
+          </div>
+          <div className="grid grid-cols-7 gap-4 mb-4">
+            {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
+              <div key={day} className="text-center font-medium text-gray-700 py-2">{day}</div>
+            ))}
+          </div>
+          <div className="grid grid-cols-7 gap-4">
+            {Array.from({ length: 35 }, (_, i) => (
+              <div key={i} className="aspect-square border border-gray-200 rounded-lg p-2 hover:bg-gray-50">
+                <div className="text-sm text-gray-600">{((i % 31) + 1)}</div>
+                {i === 15 && (
+                  <div className="mt-1 text-xs bg-act-teal-100 text-act-teal-800 px-2 py-1 rounded">
+                    NOCO Event
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderEventsPage = () => (
+    <div className="min-h-screen bg-gray-100 p-8">
+      <div className="max-w-4xl mx-auto">
+        <button 
+          onClick={() => setCurrentPage('home')}
+          className="mb-6 text-act-teal-600 hover:text-act-teal-700 flex items-center space-x-2"
+        >
+          <span>← Back to Home</span>
+        </button>
+        <div className="bg-white rounded-lg shadow-sm p-8">
+          <h1 className="text-3xl font-bold text-gray-900 mb-6">My Events</h1>
+          <div className="space-y-6">
+            <div className="border border-gray-200 rounded-lg p-6">
+              <div className="flex items-start justify-between">
+                <div className="flex items-center space-x-4">
+                  <div className="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center text-white font-semibold">
+                    N
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900">NOCO Community Workshop</h3>
+                    <p className="text-gray-600">December 20, 2024 at 2:00 PM</p>
+                    <p className="text-sm text-gray-500">Downtown Community Center</p>
+                  </div>
+                </div>
+                <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Registered</span>
+              </div>
+              <div className="mt-4 flex space-x-3">
+                <button className="bg-act-teal-600 text-white px-4 py-2 rounded-lg hover:bg-act-teal-700 transition-colors">
+                  View Details
+                </button>
+                <button className="border border-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50 transition-colors">
+                  Cancel Registration
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderGroupsPage = () => (
+    <div className="min-h-screen bg-gray-100 p-8">
+      <div className="max-w-4xl mx-auto">
+        <button 
+          onClick={() => setCurrentPage('home')}
+          className="mb-6 text-act-teal-600 hover:text-act-teal-700 flex items-center space-x-2"
+        >
+          <span>← Back to Home</span>
+        </button>
+        <div className="bg-white rounded-lg shadow-sm p-8">
+          <h1 className="text-3xl font-bold text-gray-900 mb-6">My Groups</h1>
+          <div className="grid md:grid-cols-2 gap-6">
+            {[
+              { name: 'Climate Action Network', members: 234, role: 'Member' },
+              { name: 'Local Volunteers', members: 156, role: 'Admin' },
+              { name: 'Community Builders', members: 89, role: 'Member' }
+            ].map((group, i) => (
+              <div key={i} className="border border-gray-200 rounded-lg p-6">
+                <div className="flex items-center space-x-4 mb-4">
+                  <div className="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center text-white font-semibold">
+                    {group.name[0]}
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900">{group.name}</h3>
+                    <p className="text-sm text-gray-600">{group.members} members</p>
+                  </div>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">{group.role}</span>
+                  <button className="text-act-teal-600 hover:text-act-teal-700 font-medium">
+                    View Group
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  // Page routing
+  switch (currentPage) {
+    case 'search':
+      return renderSearchPage();
+    case 'calendar':
+      return renderCalendarPage();
+    case 'events':
+      return renderEventsPage();
+    case 'groups':
+      return renderGroupsPage();
+    default:
+      return renderHomePage();
+  }
 }
 
 export default App;
