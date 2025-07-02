@@ -150,7 +150,7 @@ function App() {
               <p className="text-gray-600">You have one event in 4 days.</p>
             </div>
             <button className="text-act-teal-600 hover:text-act-teal-700 text-sm font-medium">
-              View everything >>
+              View everything {'>>'}
             </button>
           </div>
 
