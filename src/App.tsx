@@ -109,7 +109,7 @@ function App() {
                   <img 
                     src="/Together copy copy.png" 
                     alt="ACTTogether.us" 
-                    className="h-20 w-auto"
+                    className="h-40 w-auto"
                   />
                 </div>
               </div>
@@ -471,7 +471,7 @@ function App() {
                 <img 
                   src="/Together copy copy.png" 
                   alt="ACTTogether.us" 
-                  className="h-16 w-auto brightness-0 invert"
+                  className="h-32 w-auto brightness-0 invert"
                 />
               </div>
               <p className="text-gray-400">
