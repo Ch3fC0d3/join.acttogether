@@ -67,7 +67,8 @@ function Resources() {
       duration: 'Download',
       icon: Download,
       featured: false,
-      tags: ['campaigns', 'events', 'planning']
+      tags: ['campaigns', 'events', 'planning'],
+      downloadUrl: '/ACTTogether_Campaign_Event_Planning_Template.pdf'
     },
     {
       id: 4,
@@ -89,7 +90,8 @@ function Resources() {
       duration: '20 min read',
       icon: BookOpen,
       featured: false,
-      tags: ['digital', 'organizing', 'online']
+      tags: ['digital', 'organizing', 'online'],
+      downloadUrl: '/ACTTogether_Digital_Organizing_Guide.pdf'
     },
     {
       id: 6,
@@ -100,7 +102,8 @@ function Resources() {
       duration: 'Download',
       icon: Download,
       featured: false,
-      tags: ['nonprofits', 'fundraising', 'events']
+      tags: ['nonprofits', 'fundraising', 'events'],
+      downloadUrl: '/ACTTogether_Nonprofit_Fundraising_Event_Checklist.pdf'
     },
     {
       id: 7,
