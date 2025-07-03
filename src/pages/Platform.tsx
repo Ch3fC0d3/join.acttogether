@@ -383,7 +383,7 @@ function Platform() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Corporate Platforms vs.ActTogether
+              Corporate Platforms vs. ActTogether
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               See why organizers are choosing ActTogether over corporate alternatives.
@@ -422,7 +422,7 @@ function Platform() {
             </div>
 
             <div className="bg-green-50 rounded-xl p-8 border border-green-200">
-              <h3 className="text-xl font-bold text-green-800 mb-6 text-center">Mobilizon Federation</h3>
+              <h3 className="text-xl font-bold text-green-800 mb-6 text-center">ActTogether.us</h3>
               <ul className="space-y-3 text-green-700">
                 <li className="flex items-start space-x-3">
                   <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
@@ -461,7 +461,7 @@ function Platform() {
             Ready to organize without surveillance?
           </h2>
           <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-            Join our Mobilizon instance and experience privacy-first organizing with global federation.
+            Join us experience privacy-first organizing with global federation.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link 
@@ -476,7 +476,7 @@ function Platform() {
               rel="noopener noreferrer"
               className="border border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-act-teal-600 transition-colors"
             >
-              Learn About Mobilizon
+              Learn About Us
             </a>
           </div>
         </div>
