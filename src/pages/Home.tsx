@@ -33,7 +33,7 @@ function Home() {
   const features = [
     {
       icon: Calendar,
-      title: 'Federated Event Creation',
+      title: 'Event Creation',
       description: 'Create events that connect across the decentralized network'
     },
     {
@@ -93,7 +93,7 @@ function Home() {
               </span>
             </h1>
             <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-              A federated, privacy-focused platform for nonprofits, campaigns, unions, and advocacy groups. Built by the movement, for the movement.
+              A privacy-focused platform for nonprofits, campaigns, unions, and advocacy groups. Built by the movement, for the movement.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
@@ -101,7 +101,7 @@ function Home() {
                 to="/get-started"
                 className="bg-act-teal-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-act-teal-700 transform hover:scale-105 transition-all duration-200 shadow-lg"
               >
-                Join Our Instance
+                Join Us
               </Link>
               <button className="flex items-center space-x-2 text-act-teal-600 hover:text-act-teal-700 px-6 py-4 text-lg font-semibold group">
                 <Play className="h-5 w-5 group-hover:scale-110 transition-transform" />
@@ -118,7 +118,7 @@ function Home() {
               </div>
               <div className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
                 <Network className="h-8 w-8 text-act-teal-600 mx-auto mb-3" />
-                <h3 className="font-semibold text-gray-900 mb-2">Federated</h3>
+                <h3 className="font-semibold text-gray-900 mb-2">Decentralized</h3>
                 <p className="text-sm text-gray-600">Connect across the decentralized network</p>
               </div>
               <div className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
@@ -153,7 +153,7 @@ function Home() {
               What is Mobilizon?
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              A federated alternative to Facebook Events and corporate event platforms. ACTTogether.us is our instance focused on social justice organizing.
+              An alternative to Facebook Events and corporate event platforms. ACTTogether.us is focused on social justice organizing.
             </p>
           </div>
 
@@ -174,7 +174,7 @@ function Home() {
           </div>
 
           <div className="mt-12 bg-white rounded-xl p-8 shadow-sm">
-            <h3 className="text-xl font-semibold text-gray-900 mb-6">Why Choose Federated Organizing?</h3>
+            <h3 className="text-xl font-semibold text-gray-900 mb-6">Why Choose Us?</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="flex items-start space-x-3">
                 <CheckCircle className="h-5 w-5 text-act-teal-600 mt-1 flex-shrink-0" />
@@ -276,10 +276,10 @@ function Home() {
       <section className="py-20 bg-act-teal-600 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-            Part of the Federated Network
+            Part of the ActTogether network.
           </h2>
           <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-            ACTTogether.us is one instance in the growing Mobilizon federation. Connect with organizers across the network while maintaining your community's autonomy.
+            Connect with organizers across the network while maintaining your community's autonomy.
           </p>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
@@ -287,7 +287,7 @@ function Home() {
               <Globe className="h-8 w-8 text-white mx-auto mb-4" />
               <h3 className="text-lg font-bold text-white mb-2">Global Network</h3>
               <p className="text-blue-100 text-sm">
-                Connect with instances worldwide while keeping your data local
+                Connect with groups worldwide while keeping your data local
               </p>
             </div>
             
@@ -313,7 +313,7 @@ function Home() {
               to="/get-started"
               className="bg-white text-act-teal-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-flex items-center space-x-2"
             >
-              <span>Join Our Instance</span>
+              <span>Join Us</span>
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
@@ -328,7 +328,7 @@ function Home() {
               Why ACTTogether.us?
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Our Mobilizon instance is specifically focused on social justice organizing and movement building.
+              Our group is specifically focused on social justice organizing and movement building.
             </p>
           </div>
 
