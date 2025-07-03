@@ -64,7 +64,7 @@ function GetStarted() {
         '1000 signups included',
         'Advanced privacy features',
         'Priority support',
-        'Custom instance branding',
+        'Custom branding',
         'Advanced federation features',
         'Movement network access',
         'Enhanced security'
@@ -81,7 +81,7 @@ function GetStarted() {
       description: 'For large organizations with complex needs',
       features: [
         'Everything in Movement',
-        'Custom instance setup',
+        'Custom setup',
         'Dedicated federation support',
         'SLA guarantees',
         'Advanced security features',
@@ -133,11 +133,11 @@ function GetStarted() {
             <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
               Join Our
               <span className="bg-gradient-to-r from-act-teal-600 to-blue-600 bg-clip-text text-transparent block">
-                Mobilizon Instance
+                Community
               </span>
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Start organizing without surveillance. Join our privacy-focused Mobilizon instance designed for social justice movements.
+              Start organizing without surveillance. Join our privacy-focused community designed for social justice movements.
             </p>
           </div>
 
@@ -168,10 +168,10 @@ function GetStarted() {
         <section className="py-12 bg-green-50 border-b border-green-200">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-2xl font-bold text-green-800 mb-4">
-              Join Our Mobilizon Instance Today!
+              Join Us Today!
             </h2>
             <p className="text-green-700 mb-6">
-              Create your account on our privacy-focused instance and start organizing without surveillance.
+              Create your account on our privacy-focused site and start organizing without surveillance.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link 
@@ -196,10 +196,10 @@ function GetStarted() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Why Our Instance?
+              Why Us?
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              ACTTogether.us is a Mobilizon instance specifically focused on social justice organizing.
+              ACTTogether.us is specifically focused on social justice organizing.
             </p>
           </div>
 
@@ -394,7 +394,7 @@ function GetStarted() {
               What happens next?
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              We'll get you set up on our Mobilizon instance in no time.
+              We'll get you set up in no time.
             </p>
           </div>
 
@@ -407,7 +407,7 @@ function GetStarted() {
                 Create Account
               </h3>
               <p className="text-gray-600">
-                Join our Mobilizon instance with full privacy protection from day one.
+                Join us with full privacy protection from day one.
               </p>
             </div>
             
@@ -442,7 +442,7 @@ function GetStarted() {
       <section className="py-20 bg-act-teal-600">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-            Questions about our instance?
+            Questions?
           </h2>
           <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
             Our community is here to help you get started with privacy-first organizing.
