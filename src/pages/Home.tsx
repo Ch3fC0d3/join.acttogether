@@ -43,11 +43,11 @@ function Home() {
     }
   ];
 
-  // Rotate messages every 4 seconds
+  // Rotate messages every 8 seconds (slowed down from 4 seconds)
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentMessageIndex((prev) => (prev + 1) % heroMessages.length);
-    }, 4000);
+    }, 8000);
 
     return () => clearInterval(interval);
   }, [heroMessages.length]);
@@ -112,8 +112,32 @@ function Home() {
   return (
     <>
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-900/20 py-20 relative transition-colors duration-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-900/20 py-20 relative overflow-hidden transition-colors duration-200">
+        {/* Decorative Background Shapes */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {/* Large organic shape - top right */}
+          <div className="absolute -top-20 -right-20 w-96 h-96 bg-gradient-to-br from-amber-200/40 to-orange-300/40 dark:from-amber-900/20 dark:to-orange-900/20 rounded-full transform rotate-12 opacity-60"></div>
+          
+          {/* Medium organic blob - middle left */}
+          <div className="absolute top-1/3 -left-24 w-80 h-72 bg-gradient-to-br from-teal-200/50 to-emerald-300/50 dark:from-teal-900/25 dark:to-emerald-900/25 rounded-full transform -rotate-45 opacity-50"></div>
+          
+          {/* Small circular shape - bottom right */}
+          <div className="absolute bottom-32 right-16 w-48 h-48 bg-gradient-to-br from-purple-200/40 to-pink-300/40 dark:from-purple-900/20 dark:to-pink-900/20 rounded-full opacity-40"></div>
+          
+          {/* Elongated oval - top left */}
+          <div className="absolute top-16 left-8 w-64 h-32 bg-gradient-to-r from-blue-200/30 to-indigo-300/30 dark:from-blue-900/15 dark:to-indigo-900/15 rounded-full transform rotate-45 opacity-35"></div>
+          
+          {/* Medium blob - center right */}
+          <div className="absolute top-1/2 right-8 w-56 h-40 bg-gradient-to-bl from-yellow-200/35 to-amber-300/35 dark:from-yellow-900/18 dark:to-amber-900/18 rounded-full transform -rotate-12 opacity-45"></div>
+          
+          {/* Small accent shape - bottom left */}
+          <div className="absolute bottom-20 left-20 w-32 h-32 bg-gradient-to-tr from-rose-200/40 to-red-300/40 dark:from-rose-900/20 dark:to-red-900/20 rounded-full opacity-30"></div>
+          
+          {/* Organic shape - middle */}
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-48 bg-gradient-to-br from-cyan-200/25 to-sky-300/25 dark:from-cyan-900/12 dark:to-sky-900/12 rounded-full transform rotate-75 opacity-25"></div>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center">
             <div className="min-h-[200px] flex flex-col justify-center">
               <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6 transition-all duration-500 ease-in-out">
