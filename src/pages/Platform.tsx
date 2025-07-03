@@ -172,7 +172,7 @@ function Platform() {
               </span>
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-              ACTTogether.us is a Mobilizon instance - a federated, privacy-first platform for organizing events and building communities without corporate surveillance.
+              ACTTogether.us is a privacy-first platform for organizing events and building communities without corporate surveillance.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -180,16 +180,16 @@ function Platform() {
                 to="/get-started"
                 className="bg-act-teal-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-act-teal-700 transform hover:scale-105 transition-all duration-200 shadow-lg"
               >
-                Join Our Instance
+                Join Us
               </Link>
               <a
-                href="https://mobilizon.org"
+                href="https://ActTogether.us"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center space-x-2 text-act-teal-600 hover:text-act-teal-700 px-6 py-4 text-lg font-semibold group"
               >
                 <Play className="h-5 w-5 group-hover:scale-110 transition-transform" />
-                <span>Learn About Mobilizon</span>
+                <span>Learn About Us</span>
               </a>
             </div>
           </div>
