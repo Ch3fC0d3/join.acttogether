@@ -375,7 +375,7 @@ function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-              About Our Mobilizon Instance
+              About Us
             </h2>
             <p className="text-xl text-gray-600 mb-8">
               ACTTogether.us is a Mobilizon instance dedicated to empowering social justice organizations with privacy-respecting, community-controlled organizing tools.
