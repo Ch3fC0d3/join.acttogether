@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, User, LogOut } from 'lucide-react';
+import { Menu, X, User, LogOut, Settings } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import { SubscriptionStatus } from './SubscriptionStatus';
 
@@ -127,6 +127,14 @@ function Layout({ children }: LayoutProps) {
                             <div className="px-4 py-2 text-sm text-gray-700 border-b">
                               {user.email}
                             </div>
+                            <Link
+                              to="/account"
+                              onClick={() => setIsUserMenuOpen(false)}
+                              className="flex items-center space-x-2 w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                            >
+                              <Settings className="h-4 w-4" />
+                              <span>Account Settings</span>
+                            </Link>
                             <button
                               onClick={handleSignOut}
                               className="flex items-center space-x-2 w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
@@ -240,6 +248,13 @@ function Layout({ children }: LayoutProps) {
                       <div className="px-3 py-2 text-base font-medium text-gray-700">
                         {user.email}
                       </div>
+                      <Link
+                        to="/account"
+                        className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-act-teal-600"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        Account Settings
+                      </Link>
                       <button
                         onClick={() => {
                           handleSignOut();
