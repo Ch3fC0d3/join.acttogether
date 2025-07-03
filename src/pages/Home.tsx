@@ -14,7 +14,10 @@ import {
   ArrowRight,
   CheckCircle,
   Star,
-  Award
+  Award,
+  Globe,
+  Lock,
+  Network
 } from 'lucide-react';
 
 function Home() {
@@ -23,56 +26,57 @@ function Home() {
   const stats = [
     { number: '30%', label: 'fewer no-shows' },
     { number: '500+', label: 'organizations served' },
-    { number: '1M+', label: 'actions taken' }
+    { number: '1M+', label: 'actions organized' },
+    { number: '100%', label: 'privacy-focused' }
   ];
 
   const features = [
     {
       icon: Calendar,
-      title: 'Quick Event Creation',
-      description: 'Single, recurring, virtual, calls to legislators'
+      title: 'Federated Event Creation',
+      description: 'Create events that connect across the decentralized network'
     },
     {
-      icon: Zap,
-      title: 'Automated Reminders',
-      description: 'Surveys and follow-ups resulting in 30% fewer no-shows'
+      icon: Shield,
+      title: 'Privacy by Design',
+      description: 'No tracking, no ads, no data mining - your data stays yours'
+    },
+    {
+      icon: Network,
+      title: 'Decentralized Network',
+      description: 'Connect with other instances while maintaining autonomy'
     },
     {
       icon: Users,
-      title: 'Volunteer Host Capabilities',
-      description: 'Peer-to-peer events that scale your impact'
-    },
-    {
-      icon: BarChart3,
-      title: 'Data & Analytics',
-      description: 'Dashboards, CSV export, APIs, SQL options'
+      title: 'Community Organizing',
+      description: 'Build movements without corporate surveillance'
     }
   ];
 
   const solutions = {
     nonprofits: {
       title: 'Nonprofits',
-      subtitle: 'Scale your volunteer impact',
-      description: 'Promotes volunteer scaling & supporter action with tools designed for mission-driven organizations.',
-      benefits: ['Volunteer management', 'Supporter engagement', 'Impact measurement', 'Community building']
+      subtitle: 'Organize without surveillance',
+      description: 'Build your movement on a platform that respects your privacy and puts community before profit.',
+      benefits: ['Privacy-first organizing', 'No corporate tracking', 'Community ownership', 'Federated networking']
     },
     campaigns: {
       title: 'Campaigns & Committees',
-      subtitle: 'Win with organized action',
-      description: 'Designed to identify new supporters, empower volunteers, and win campaigns through strategic mobilization.',
-      benefits: ['Voter outreach', 'Volunteer coordination', 'Event management', 'Data insights']
+      subtitle: 'Democratic organizing tools',
+      description: 'Organize campaigns on infrastructure you control, free from corporate manipulation and surveillance.',
+      benefits: ['Voter privacy protection', 'Decentralized coordination', 'No algorithmic interference', 'Community-controlled data']
     },
     unions: {
       title: 'Unions',
-      subtitle: 'Strengthen member engagement',
-      description: 'Unite your members through coordinated actions, events, and advocacy campaigns.',
-      benefits: ['Member mobilization', 'Action coordination', 'Communication tools', 'Solidarity building']
+      subtitle: 'Worker-controlled organizing',
+      description: 'Unite your members on a platform built by and for the movement, not corporate interests.',
+      benefits: ['Secure member communications', 'Worker-owned infrastructure', 'No corporate surveillance', 'Solidarity networking']
     },
     advocacy: {
       title: 'Advocacy Organizations',
-      subtitle: 'Build movements that matter',
-      description: 'Tailored messaging on movement-building, mobilization, and creating lasting impact.',
-      benefits: ['Movement building', 'Policy advocacy', 'Grassroots organizing', 'Coalition management']
+      subtitle: 'Movement infrastructure',
+      description: 'Build lasting movements on decentralized infrastructure that can\'t be shut down or manipulated.',
+      benefits: ['Censorship resistance', 'Community governance', 'Cross-movement solidarity', 'Democratic technology']
     }
   };
 
@@ -83,13 +87,13 @@ function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-              Unlock the full potential of your
+              Organize without
               <span className="bg-gradient-to-r from-act-teal-600 to-blue-600 bg-clip-text text-transparent block">
-                supporters
+                surveillance
               </span>
             </h1>
             <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-              The platform built for nonprofits, campaigns, unions, and advocacy groups to organize, mobilize, and create lasting impact.
+              A federated, privacy-focused platform for nonprofits, campaigns, unions, and advocacy groups. Built by the movement, for the movement.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
@@ -97,35 +101,30 @@ function Home() {
                 to="/get-started"
                 className="bg-act-teal-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-act-teal-700 transform hover:scale-105 transition-all duration-200 shadow-lg"
               >
-                Get Started Free
+                Join Our Instance
               </Link>
               <button className="flex items-center space-x-2 text-act-teal-600 hover:text-act-teal-700 px-6 py-4 text-lg font-semibold group">
                 <Play className="h-5 w-5 group-hover:scale-110 transition-transform" />
-                <span>Watch Demo</span>
+                <span>See How It Works</span>
               </button>
             </div>
 
-            {/* Target Audiences */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16">
+            {/* Core Values */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16">
               <div className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
-                <Heart className="h-8 w-8 text-act-teal-600 mx-auto mb-3" />
-                <h3 className="font-semibold text-gray-900 mb-2">Nonprofits</h3>
-                <p className="text-sm text-gray-600">Scale your mission</p>
+                <Shield className="h-8 w-8 text-act-teal-600 mx-auto mb-3" />
+                <h3 className="font-semibold text-gray-900 mb-2">Privacy First</h3>
+                <p className="text-sm text-gray-600">No tracking, no ads, no surveillance</p>
               </div>
               <div className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
-                <Vote className="h-8 w-8 text-act-teal-600 mx-auto mb-3" />
-                <h3 className="font-semibold text-gray-900 mb-2">Campaigns</h3>
-                <p className="text-sm text-gray-600">Win elections</p>
+                <Network className="h-8 w-8 text-act-teal-600 mx-auto mb-3" />
+                <h3 className="font-semibold text-gray-900 mb-2">Federated</h3>
+                <p className="text-sm text-gray-600">Connect across the decentralized network</p>
               </div>
               <div className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
                 <Users className="h-8 w-8 text-act-teal-600 mx-auto mb-3" />
-                <h3 className="font-semibold text-gray-900 mb-2">Unions</h3>
-                <p className="text-sm text-gray-600">Unite members</p>
-              </div>
-              <div className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
-                <Megaphone className="h-8 w-8 text-act-teal-600 mx-auto mb-3" />
-                <h3 className="font-semibold text-gray-900 mb-2">Advocacy</h3>
-                <p className="text-sm text-gray-600">Drive change</p>
+                <h3 className="font-semibold text-gray-900 mb-2">Community Owned</h3>
+                <p className="text-sm text-gray-600">Built by organizers, for organizers</p>
               </div>
             </div>
           </div>
@@ -135,7 +134,7 @@ function Home() {
       {/* Stats Section */}
       <section className="py-16 bg-white relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
               <div key={index} className="text-center">
                 <div className="text-4xl font-bold text-act-teal-600 mb-2">{stat.number}</div>
@@ -146,61 +145,15 @@ function Home() {
         </div>
       </section>
 
-      {/* Get Started Section */}
-      <section id="get-started" className="py-20 bg-act-teal-600 relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-            Ready to get started?
-          </h2>
-          <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-            Choose your path to building stronger communities and driving meaningful action.
-          </p>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <div className="bg-white rounded-xl p-8 shadow-lg">
-              <div className="text-act-teal-600 mb-4">
-                <Star className="h-8 w-8 mx-auto" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Free Demo</h3>
-              <p className="text-gray-600 mb-6">
-                Get a personalized walkthrough of our core features including volunteer conversion, community building, and list growth.
-              </p>
-              <Link 
-                to="/get-started"
-                className="w-full bg-act-teal-600 text-white py-3 rounded-lg font-semibold hover:bg-act-teal-700 transition-colors block text-center"
-              >
-                Schedule Demo
-              </Link>
-            </div>
-            
-            <div className="bg-white rounded-xl p-8 shadow-lg">
-              <div className="text-act-teal-600 mb-4">
-                <Zap className="h-8 w-8 mx-auto" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Starter Account</h3>
-              <p className="text-gray-600 mb-6">
-                Free for teams up to 5 members. Includes 5 events/actions, max 50 signups or 500 petition signatures.
-              </p>
-              <Link 
-                to="/get-started"
-                className="w-full bg-gray-900 text-white py-3 rounded-lg font-semibold hover:bg-gray-800 transition-colors block text-center"
-              >
-                Start Free
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Platform Features */}
-      <section id="platform" className="py-20 bg-gray-50 relative">
+      {/* What is Mobilizon Section */}
+      <section className="py-20 bg-gray-50 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Platform Features – How It Works
+              What is Mobilizon?
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Everything you need to organize, mobilize, and measure your impact in one powerful platform.
+              A federated alternative to Facebook Events and corporate event platforms. ACTTogether.us is our instance focused on social justice organizing.
             </p>
           </div>
 
@@ -221,33 +174,37 @@ function Home() {
           </div>
 
           <div className="mt-12 bg-white rounded-xl p-8 shadow-sm">
-            <h3 className="text-xl font-semibold text-gray-900 mb-6">Additional Capabilities</h3>
+            <h3 className="text-xl font-semibold text-gray-900 mb-6">Why Choose Federated Organizing?</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="flex items-start space-x-3">
                 <CheckCircle className="h-5 w-5 text-act-teal-600 mt-1 flex-shrink-0" />
                 <div>
-                  <h4 className="font-medium text-gray-900">Network Access</h4>
-                  <p className="text-gray-600">Access to Mobilize supporter network + cross-promotions</p>
+                  <h4 className="font-medium text-gray-900">No Corporate Control</h4>
+                  <p className="text-gray-600">Your organizing isn't subject to corporate algorithms or censorship</p>
                 </div>
               </div>
               <div className="flex items-start space-x-3">
                 <CheckCircle className="h-5 w-5 text-act-teal-600 mt-1 flex-shrink-0" />
                 <div>
-                  <h4 className="font-medium text-gray-900">Integrations</h4>
-                  <p className="text-gray-600">Connect with your existing tools and workflows</p>
+                  <h4 className="font-medium text-gray-900">Data Sovereignty</h4>
+                  <p className="text-gray-600">Your community's data stays with your community</p>
+                </div>
+              </div>
+              <div className="flex items-start space-x-3">
+                <CheckCircle className="h-5 w-5 text-act-teal-600 mt-1 flex-shrink-0" />
+                <div>
+                  <h4 className="font-medium text-gray-900">Network Effects</h4>
+                  <p className="text-gray-600">Connect with other instances while maintaining autonomy</p>
+                </div>
+              </div>
+              <div className="flex items-start space-x-3">
+                <CheckCircle className="h-5 w-5 text-act-teal-600 mt-1 flex-shrink-0" />
+                <div>
+                  <h4 className="font-medium text-gray-900">Movement Infrastructure</h4>
+                  <p className="text-gray-600">Technology built by and for social movements</p>
                 </div>
               </div>
             </div>
-          </div>
-
-          <div className="text-center mt-12">
-            <Link 
-              to="/platform"
-              className="bg-act-teal-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-act-teal-700 transition-colors inline-flex items-center space-x-2"
-            >
-              <span>Explore All Features</span>
-              <ArrowRight className="h-4 w-4" />
-            </Link>
           </div>
         </div>
       </section>
@@ -257,10 +214,10 @@ function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Solutions for Your Organization
+              Organizing for Every Movement
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Tailored features and strategies for different types of mission-driven organizations.
+              Privacy-focused tools for different types of mission-driven organizations.
             </p>
           </div>
 
@@ -315,7 +272,55 @@ function Home() {
         </div>
       </section>
 
-      {/* Why ACTTogether Section */}
+      {/* Federation Network */}
+      <section className="py-20 bg-act-teal-600 relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+            Part of the Federated Network
+          </h2>
+          <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+            ACTTogether.us is one instance in the growing Mobilizon federation. Connect with organizers across the network while maintaining your community's autonomy.
+          </p>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+            <div className="bg-white bg-opacity-10 rounded-xl p-6">
+              <Globe className="h-8 w-8 text-white mx-auto mb-4" />
+              <h3 className="text-lg font-bold text-white mb-2">Global Network</h3>
+              <p className="text-blue-100 text-sm">
+                Connect with instances worldwide while keeping your data local
+              </p>
+            </div>
+            
+            <div className="bg-white bg-opacity-10 rounded-xl p-6">
+              <Lock className="h-8 w-8 text-white mx-auto mb-4" />
+              <h3 className="text-lg font-bold text-white mb-2">Privacy Protected</h3>
+              <p className="text-blue-100 text-sm">
+                No corporate surveillance or data mining across the federation
+              </p>
+            </div>
+            
+            <div className="bg-white bg-opacity-10 rounded-xl p-6">
+              <Users className="h-8 w-8 text-white mx-auto mb-4" />
+              <h3 className="text-lg font-bold text-white mb-2">Community Governed</h3>
+              <p className="text-blue-100 text-sm">
+                Democratic governance by and for the organizing community
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-12">
+            <Link 
+              to="/get-started"
+              className="bg-white text-act-teal-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-flex items-center space-x-2"
+            >
+              <span>Join Our Instance</span>
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Why This Instance */}
       <section id="why" className="py-20 bg-gradient-to-br from-blue-50 to-gray-50 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -323,32 +328,32 @@ function Home() {
               Why ACTTogether.us?
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Built by organizers, for organizers. Trusted by hundreds of mission-driven organizations.
+              Our Mobilizon instance is specifically focused on social justice organizing and movement building.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-white rounded-xl p-8 shadow-sm text-center">
-              <Award className="h-12 w-12 text-act-teal-600 mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Proven Impact</h3>
+              <Heart className="h-12 w-12 text-act-teal-600 mx-auto mb-4" />
+              <h3 className="text-xl font-bold text-gray-900 mb-4">Movement Focused</h3>
               <p className="text-gray-600">
-                Over 1 million actions organized and 500+ organizations served across the country.
+                Specifically designed for nonprofits, campaigns, unions, and advocacy organizations.
               </p>
             </div>
             
             <div className="bg-white rounded-xl p-8 shadow-sm text-center">
               <Shield className="h-12 w-12 text-act-teal-600 mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Secure & Reliable</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-4">Privacy Committed</h3>
               <p className="text-gray-600">
-                Enterprise-grade security with 99.9% uptime. Your data and supporters are protected.
+                No tracking, no ads, no corporate surveillance. Your organizing data stays private.
               </p>
             </div>
             
             <div className="bg-white rounded-xl p-8 shadow-sm text-center">
               <Users className="h-12 w-12 text-act-teal-600 mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Expert Support</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-4">Organizer Run</h3>
               <p className="text-gray-600">
-                Dedicated support team with organizing experience. We're here to help you succeed.
+                Managed by experienced organizers who understand the needs of social movements.
               </p>
             </div>
           </div>
@@ -358,7 +363,7 @@ function Home() {
               to="/why"
               className="bg-act-teal-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-act-teal-700 transition-colors inline-flex items-center space-x-2"
             >
-              <span>Learn More About Us</span>
+              <span>Learn More About Our Instance</span>
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
@@ -370,26 +375,26 @@ function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-              About ACTTogether.us
+              About Our Mobilizon Instance
             </h2>
             <p className="text-xl text-gray-600 mb-8">
-              We're a mission-driven platform dedicated to empowering nonprofits, unions, campaigns, and grassroots organizations with the tools they need to create lasting change.
+              ACTTogether.us is a Mobilizon instance dedicated to empowering social justice organizations with privacy-respecting, community-controlled organizing tools.
             </p>
             <p className="text-lg text-gray-600 mb-8">
-              Founded by organizers who understood the challenges of mobilizing supporters, we've built a platform that combines ease of use with powerful features, helping organizations of all sizes amplify their impact and build stronger communities.
+              As part of the federated Mobilizon network, we provide all the benefits of decentralized organizing while focusing specifically on the needs of nonprofits, campaigns, unions, and advocacy groups working for positive change.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link 
                 to="/volunteer"
                 className="bg-act-teal-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-act-teal-700 transition-colors"
               >
-                Join Our Mission
+                Join Our Community
               </Link>
               <Link 
                 to="/why"
                 className="border border-act-teal-600 text-act-teal-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors"
               >
-                Learn Our Story
+                Learn About Mobilizon
               </Link>
             </div>
           </div>

@@ -15,7 +15,9 @@ import {
   Megaphone,
   Mail,
   Phone,
-  Globe
+  Globe,
+  Network,
+  Lock
 } from 'lucide-react';
 import { StripeCheckout } from '../components/StripeCheckout';
 import { useAuth } from '../hooks/useAuth';
@@ -30,42 +32,42 @@ function GetStarted() {
   const plans = [
     {
       id: 'starter',
-      name: 'Starter',
+      name: 'Community',
       price: 'Free',
       description: 'Perfect for small organizations getting started',
       features: [
         'Up to 5 team members',
         '5 events/actions per month',
         'Max 50 signups per event',
-        'Basic analytics',
-        'Email support',
-        'Core platform features'
+        'Basic privacy protection',
+        'Community support',
+        'Federated event sharing'
       ],
       limitations: [
         'Limited to 500 petition signatures',
         'Basic customization options',
         'Standard support response time'
       ],
-      cta: 'Start Free',
+      cta: 'Join Free',
       popular: false,
       isFree: true
     },
     {
       id: 'professional',
-      name: 'Professional',
+      name: 'Movement',
       price: '$10 per 1000',
       period: '/month',
       description: 'For growing organizations with regular activities',
       features: [
         'Unlimited team members',
         'Unlimited events/actions',
-        '1000 signups',
-        'Advanced analytics & reporting',
+        '1000 signups included',
+        'Advanced privacy features',
         'Priority support',
-        'Custom branding',
-        'Automation workflows',
-        'Integration access',
-        'Advanced segmentation'
+        'Custom instance branding',
+        'Advanced federation features',
+        'Movement network access',
+        'Enhanced security'
       ],
       limitations: [],
       cta: 'Start 14-Day Trial',
@@ -74,13 +76,13 @@ function GetStarted() {
     },
     {
       id: 'enterprise',
-      name: 'Enterprise',
+      name: 'Federation',
       price: 'Custom',
       description: 'For large organizations with complex needs',
       features: [
-        'Everything in Professional',
-        'Custom integrations',
-        'Dedicated account manager',
+        'Everything in Movement',
+        'Custom instance setup',
+        'Dedicated federation support',
         'SLA guarantees',
         'Advanced security features',
         'Custom training sessions',
@@ -89,7 +91,7 @@ function GetStarted() {
         'Custom reporting'
       ],
       limitations: [],
-      cta: 'Contact Sales',
+      cta: 'Contact Us',
       popular: false,
       isFree: false
     }
@@ -129,29 +131,29 @@ function GetStarted() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-              Get Started with
+              Join Our
               <span className="bg-gradient-to-r from-act-teal-600 to-blue-600 bg-clip-text text-transparent block">
-                ACTTogether.us
+                Mobilizon Instance
               </span>
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Choose your plan and start organizing more effectively today. No setup fees, no long-term contracts.
+              Start organizing without surveillance. Join our privacy-focused Mobilizon instance designed for social justice movements.
             </p>
           </div>
 
           {/* Quick Stats */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
             <div className="text-center">
-              <div className="text-3xl font-bold text-act-teal-600 mb-2">5 min</div>
-              <div className="text-gray-600">Setup time</div>
+              <div className="text-3xl font-bold text-act-teal-600 mb-2">0%</div>
+              <div className="text-gray-600">Corporate tracking</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-act-teal-600 mb-2">14 days</div>
-              <div className="text-gray-600">Free trial</div>
+              <div className="text-3xl font-bold text-act-teal-600 mb-2">100%</div>
+              <div className="text-gray-600">Privacy protection</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold text-act-teal-600 mb-2">24/7</div>
-              <div className="text-gray-600">Support</div>
+              <div className="text-gray-600">Federation access</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold text-act-teal-600 mb-2">500+</div>
@@ -166,17 +168,17 @@ function GetStarted() {
         <section className="py-12 bg-green-50 border-b border-green-200">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-2xl font-bold text-green-800 mb-4">
-              Start Free Today!
+              Join Our Mobilizon Instance Today!
             </h2>
             <p className="text-green-700 mb-6">
-              Create your free account and start organizing immediately. No credit card required.
+              Create your account on our privacy-focused instance and start organizing without surveillance.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link 
                 to="/signup"
                 className="bg-act-teal-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-act-teal-700 transition-colors"
               >
-                Create Free Account
+                Create Account
               </Link>
               <Link 
                 to="/login"
@@ -189,15 +191,55 @@ function GetStarted() {
         </section>
       )}
 
-      {/* Pricing Plans */}
+      {/* Instance Features */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Choose Your Plan
+              Why Our Instance?
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Start free and scale as you grow. All plans include our core organizing features.
+              ACTTogether.us is a Mobilizon instance specifically focused on social justice organizing.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <div className="bg-gray-50 rounded-xl p-8 text-center">
+              <Shield className="h-12 w-12 text-act-teal-600 mx-auto mb-4" />
+              <h3 className="text-xl font-bold text-gray-900 mb-4">Privacy First</h3>
+              <p className="text-gray-600">
+                No tracking, no ads, no corporate surveillance. Your organizing data stays private.
+              </p>
+            </div>
+            
+            <div className="bg-gray-50 rounded-xl p-8 text-center">
+              <Network className="h-12 w-12 text-act-teal-600 mx-auto mb-4" />
+              <h3 className="text-xl font-bold text-gray-900 mb-4">Federated Network</h3>
+              <p className="text-gray-600">
+                Connect with organizers across the global Mobilizon federation while maintaining autonomy.
+              </p>
+            </div>
+            
+            <div className="bg-gray-50 rounded-xl p-8 text-center">
+              <Heart className="h-12 w-12 text-act-teal-600 mx-auto mb-4" />
+              <h3 className="text-xl font-bold text-gray-900 mb-4">Movement Focused</h3>
+              <p className="text-gray-600">
+                Designed specifically for nonprofits, campaigns, unions, and advocacy organizations.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing Plans */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Choose Your Level
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Start free and scale as you grow. All plans include privacy protection and federation access.
             </p>
           </div>
 
@@ -308,7 +350,7 @@ function GetStarted() {
       )}
 
       {/* Organization Type Selection */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
@@ -345,14 +387,14 @@ function GetStarted() {
       </section>
 
       {/* What Happens Next */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               What happens next?
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              We'll get you set up and organized in no time.
+              We'll get you set up on our Mobilizon instance in no time.
             </p>
           </div>
 
@@ -362,10 +404,10 @@ function GetStarted() {
                 1
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-3">
-                Account Setup
+                Create Account
               </h3>
               <p className="text-gray-600">
-                Create your free account and get immediate access to the platform.
+                Join our Mobilizon instance with full privacy protection from day one.
               </p>
             </div>
             
@@ -374,10 +416,10 @@ function GetStarted() {
                 2
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-3">
-                Explore Features
+                Explore Federation
               </h3>
               <p className="text-gray-600">
-                Try out our organizing tools with your free account or upgrade for more features.
+                Discover events and groups across the global Mobilizon network.
               </p>
             </div>
             
@@ -389,7 +431,7 @@ function GetStarted() {
                 Start Organizing
               </h3>
               <p className="text-gray-600">
-                Begin creating events, managing volunteers, and building your movement.
+                Create events, build groups, and organize without surveillance.
               </p>
             </div>
           </div>
@@ -400,10 +442,10 @@ function GetStarted() {
       <section className="py-20 bg-act-teal-600">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-            Need help getting started?
+            Questions about our instance?
           </h2>
           <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-            Our team is here to help you succeed. Get in touch with any questions.
+            Our community is here to help you get started with privacy-first organizing.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link 
