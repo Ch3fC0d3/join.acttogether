@@ -40,8 +40,8 @@ function WhyACTTogether() {
     },
     {
       icon: Network,
-      title: 'Federated & Free',
-      description: 'Part of the decentralized Mobilizon network. Connect globally while maintaining local autonomy.'
+      title: 'Community',
+      description: ' Connect globally while maintaining local autonomy.'
     },
     {
       icon: Users,
@@ -53,8 +53,8 @@ function WhyACTTogether() {
   const mobilizonBenefits = [
     {
       icon: Globe,
-      title: 'Federated Network',
-      description: 'Connect with other Mobilizon instances while maintaining your community\'s independence.',
+      title: 'Secure Network',
+      description: 'Connect with other groups while maintaining your community\'s independence.',
       benefits: ['Cross-instance event discovery', 'Decentralized infrastructure', 'No single point of failure']
     },
     {
@@ -85,7 +85,7 @@ function WhyACTTogether() {
       organization: "Community Justice Coalition"
     },
     {
-      quote: "Being part of the federated network means we can connect with other movements while keeping control of our own data and community.",
+      quote: "Being part of the community network means we can connect with other movements while keeping control of our own data and community.",
       author: "Marcus Rodriguez",
       title: "Campaign Manager",
       organization: "Progressive Action Network"
@@ -144,7 +144,7 @@ function WhyACTTogether() {
               </span>
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              ACTTogether.us is a Mobilizon instance built specifically for social justice organizing. Privacy-focused, community-controlled, and movement-driven.
+              ACTTogether.us is built specifically for social justice organizing. Privacy-focused, community-controlled, and movement-driven.
             </p>
           </div>
 
@@ -169,7 +169,7 @@ function WhyACTTogether() {
               What is Mobilizon?
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Mobilizon is a federated, open-source alternative to Facebook Events and corporate event platforms.
+              ActTogether.us alternative to Facebook Events and corporate event platforms.
             </p>
           </div>
 
@@ -195,7 +195,7 @@ function WhyACTTogether() {
 
           <div className="mt-16 bg-act-teal-50 rounded-2xl p-8 md:p-12">
             <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">
-              Why Federated Organizing Matters
+              Why Community Matters
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div>
