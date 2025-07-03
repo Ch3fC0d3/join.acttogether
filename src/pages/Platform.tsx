@@ -221,7 +221,7 @@ function Platform() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Mobilizon Platform Features
+              Platform Features
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Privacy-first tools designed specifically for movement organizing and community building.
@@ -290,7 +290,7 @@ function Platform() {
                         Experience {feature.title}
                       </h4>
                       <p className="text-gray-600 mb-6">
-                        Join our Mobilizon instance to experience privacy-first organizing.
+                        Join us to experience privacy-first organizing.
                       </p>
                       <Link 
                         to="/get-started"
@@ -316,7 +316,7 @@ function Platform() {
               Why Choose ActTogether?
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Mobilizon offers everything corporate platforms do, but with privacy, community control, and movement values.
+              ActTogether offers everything corporate platforms do, but with privacy, community control, and movement values.
             </p>
           </div>
 
@@ -371,7 +371,7 @@ function Platform() {
                 rel="noopener noreferrer"
                 className="text-act-teal-600 hover:text-act-teal-700 font-semibold"
               >
-                Explore all Mobilizon instances →
+                Explore other groups →
               </a>
             </div>
           </div>
@@ -383,7 +383,7 @@ function Platform() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Corporate Platforms vs. Mobilizon
+              Corporate Platforms vs.ActTogether
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               See why organizers are choosing ActTogether over corporate alternatives.
