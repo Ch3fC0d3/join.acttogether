@@ -91,14 +91,14 @@ function Layout({ children }: LayoutProps) {
                   Why ACTTogether.us
                 </Link>
                 <Link 
-                  to="/volunteer" 
+                  to="/pricing" 
                   className={`px-3 py-2 text-sm font-medium transition-colors ${
-                    isActive('/volunteer') 
+                    isActive('/pricing') || isActive('/volunteer')
                       ? 'text-act-teal-600 border-b-2 border-act-teal-600' 
                       : 'text-gray-700 dark:text-gray-300 hover:text-act-teal-600 dark:hover:text-act-teal-400'
                   }`}
                 >
-                  Volunteer
+                  Pricing
                 </Link>
                 <Link 
                   to="/resources" 
@@ -224,15 +224,15 @@ function Layout({ children }: LayoutProps) {
                 Why ACTTogether.us
               </Link>
               <Link 
-                to="/volunteer" 
+                to="/pricing" 
                 className={`block px-3 py-2 text-base font-medium ${
-                  isActive('/volunteer') 
+                  isActive('/pricing') || isActive('/volunteer')
                     ? 'text-act-teal-600 bg-act-teal-50 dark:bg-act-teal-900/20' 
                     : 'text-gray-700 dark:text-gray-300 hover:text-act-teal-600 dark:hover:text-act-teal-400'
                 }`}
                 onClick={() => setIsMenuOpen(false)}
               >
-                Volunteer
+                Pricing
               </Link>
               <Link 
                 to="/resources" 
@@ -334,7 +334,7 @@ function Layout({ children }: LayoutProps) {
               <h3 className="font-semibold mb-4">Platform</h3>
               <ul className="space-y-2 text-gray-400">
                 <li><Link to="/platform" className="hover:text-white transition-colors">Features</Link></li>
-                <li><Link to="/get-started" className="hover:text-white transition-colors">Pricing</Link></li>
+                <li><Link to="/pricing" className="hover:text-white transition-colors">Pricing</Link></li>
                 <li><Link to="/resources" className="hover:text-white transition-colors">Integrations</Link></li>
                 <li><Link to="/resources" className="hover:text-white transition-colors">API</Link></li>
               </ul>
@@ -346,7 +346,7 @@ function Layout({ children }: LayoutProps) {
                 <li><Link to="/resources" className="hover:text-white transition-colors">Blog</Link></li>
                 <li><Link to="/resources" className="hover:text-white transition-colors">Case Studies</Link></li>
                 <li><Link to="/resources" className="hover:text-white transition-colors">Help Center</Link></li>
-                <li><Link to="/volunteer" className="hover:text-white transition-colors">Jobs</Link></li>
+                <li><Link to="/pricing" className="hover:text-white transition-colors">Jobs</Link></li>
               </ul>
             </div>
             
@@ -355,7 +355,7 @@ function Layout({ children }: LayoutProps) {
               <ul className="space-y-2 text-gray-400">
                 <li><Link to="/resources" className="hover:text-white transition-colors">Contact Us</Link></li>
                 <li><Link to="/resources" className="hover:text-white transition-colors">Training</Link></li>
-                <li><Link to="/volunteer" className="hover:text-white transition-colors">Community</Link></li>
+                <li><Link to="/pricing" className="hover:text-white transition-colors">Community</Link></li>
                 <li><Link to="/resources" className="hover:text-white transition-colors">Status</Link></li>
               </ul>
             </div>

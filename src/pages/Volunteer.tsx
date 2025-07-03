@@ -1,255 +1,326 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { 
-  Heart,
-  Users,
-  Code,
-  Megaphone,
-  Calendar,
-  Globe,
   CheckCircle,
   ArrowRight,
-  Mail,
-  MapPin,
+  Users,
+  Calendar,
+  BarChart3,
+  Zap,
+  Star,
   Clock,
-  Award,
-  Target,
-  Zap
+  Shield,
+  Heart,
+  Vote,
+  Megaphone,
+  Mail,
+  Phone,
+  Globe,
+  Network,
+  Lock,
+  Server,
+  CreditCard,
+  HelpCircle
 } from 'lucide-react';
+import { StripeCheckout } from '../components/StripeCheckout';
+import { useAuth } from '../hooks/useAuth';
 
-function Volunteer() {
-  const [selectedRole, setSelectedRole] = useState('');
+function Pricing() {
+  const [selectedPlan, setSelectedPlan] = useState('professional');
+  const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('monthly');
+  const [showCheckout, setShowCheckout] = useState(false);
+  const [checkoutMessage, setCheckoutMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const { user } = useAuth();
 
-  const opportunities = [
+  const plans = [
     {
-      id: 'community',
+      id: 'starter',
+      name: 'Community',
+      price: { monthly: 'Free', yearly: 'Free' },
+      description: 'Perfect for small organizations getting started',
+      features: [
+        'Up to 5 team members',
+        '5 events/actions per month',
+        'Max 50 signups per event',
+        'Basic privacy protection',
+        'Community support',
+        'Federated event sharing',
+        'Basic analytics',
+        'Email support'
+      ],
+      limitations: [
+        'Limited to 500 petition signatures',
+        'Basic customization options',
+        'Standard support response time'
+      ],
+      cta: 'Start Free',
+      popular: false,
+      isFree: true
+    },
+    {
+      id: 'professional',
+      name: 'Movement',
+      price: { monthly: '$99', yearly: '$990' },
+      description: 'For growing organizations with regular activities',
+      features: [
+        'Unlimited team members',
+        'Unlimited events/actions',
+        'Unlimited signups',
+        'Advanced privacy features',
+        'Priority support',
+        'Custom branding',
+        'Advanced federation features',
+        'Movement network access',
+        'Enhanced security',
+        'Automation workflows',
+        'Integration access',
+        'Advanced segmentation'
+      ],
+      limitations: [],
+      cta: 'Start 14-Day Trial',
+      popular: true,
+      isFree: false,
+      savings: 'Save $198/year'
+    },
+    {
+      id: 'enterprise',
+      name: 'Federation',
+      price: { monthly: 'Custom', yearly: 'Custom' },
+      description: 'For large organizations with complex needs',
+      features: [
+        'Everything in Movement',
+        'Custom integrations',
+        'Dedicated account manager',
+        'SLA guarantees',
+        'Advanced security features',
+        'Custom training sessions',
+        'White-label options',
+        'API access',
+        'Custom reporting',
+        'Custom federation setup',
+        'Priority feature development'
+      ],
+      limitations: [],
+      cta: 'Contact Sales',
+      popular: false,
+      isFree: false
+    }
+  ];
+
+  const features = [
+    {
+      icon: Shield,
+      title: 'Privacy Protection',
+      description: 'No tracking, no ads, no corporate surveillance'
+    },
+    {
+      icon: Network,
+      title: 'Federation Network',
+      description: 'Connect globally while maintaining autonomy'
+    },
+    {
       icon: Users,
-      title: 'Community Organizer',
-      type: 'Part-time',
-      location: 'Remote',
-      commitment: '10-15 hours/week',
-      description: 'Help build and engage our community of mission-driven organizations.',
-      responsibilities: [
-        'Facilitate user community events and webinars',
-        'Create educational content and best practices guides',
-        'Provide organizing strategy support to platform users',
-        'Gather feedback and feature requests from the community'
-      ],
-      qualifications: [
-        '3+ years of organizing experience',
-        'Strong communication and facilitation skills',
-        'Experience with nonprofits, campaigns, or advocacy work',
-        'Passion for empowering grassroots organizations'
-      ]
+      title: 'Community Organizing',
+      description: 'Tools built specifically for movements'
     },
     {
-      id: 'developer',
-      icon: Code,
-      title: 'Volunteer Developer',
-      type: 'Flexible',
-      location: 'Remote',
-      commitment: '5-10 hours/week',
-      description: 'Contribute to our open-source tools and platform improvements.',
-      responsibilities: [
-        'Develop new features for the ACTTogether.us platform',
-        'Fix bugs and improve platform performance',
-        'Create integrations with other organizing tools',
-        'Contribute to our open-source organizing toolkit'
-      ],
-      qualifications: [
-        'Experience with React, Node.js, or similar technologies',
-        'Understanding of web development best practices',
-        'Interest in social impact technology',
-        'Collaborative mindset and good communication skills'
-      ]
-    },
-    {
-      id: 'content',
-      icon: Megaphone,
-      title: 'Content Creator',
-      type: 'Project-based',
-      location: 'Remote',
-      commitment: '5-8 hours/week',
-      description: 'Create educational content to help organizations maximize their impact.',
-      responsibilities: [
-        'Write blog posts about organizing best practices',
-        'Create video tutorials and platform guides',
-        'Develop case studies showcasing successful campaigns',
-        'Design infographics and social media content'
-      ],
-      qualifications: [
-        'Strong writing and communication skills',
-        'Experience in content creation or marketing',
-        'Knowledge of organizing, campaigns, or nonprofit work',
-        'Familiarity with content management systems'
-      ]
-    },
-    {
-      id: 'support',
-      icon: Heart,
-      title: 'User Support Specialist',
-      type: 'Part-time',
-      location: 'Remote',
-      commitment: '8-12 hours/week',
-      description: 'Provide technical and strategic support to platform users.',
-      responsibilities: [
-        'Answer user questions via email and chat',
-        'Create and maintain help documentation',
-        'Conduct user onboarding sessions',
-        'Escalate technical issues to the development team'
-      ],
-      qualifications: [
-        'Customer service or support experience',
-        'Technical aptitude and problem-solving skills',
-        'Understanding of organizing workflows',
-        'Patience and empathy for user challenges'
-      ]
+      icon: Lock,
+      title: 'Data Sovereignty',
+      description: 'Your data stays with your community'
     }
   ];
 
-  const benefits = [
+  const faqs = [
     {
-      icon: Target,
-      title: 'Make Real Impact',
-      description: 'Your work directly helps organizations create positive change in their communities.'
+      question: 'What is included in the free Community plan?',
+      answer: 'The Community plan includes up to 5 team members, 5 events per month, max 50 signups per event, basic privacy protection, and access to the federated network.'
     },
     {
-      icon: Users,
-      title: 'Join a Community',
-      description: 'Connect with like-minded volunteers and professionals working for social good.'
+      question: 'How does the federated network work?',
+      answer: 'Our platform connects with other Mobilizon instances worldwide, allowing you to discover and share events across the network while maintaining your community\'s independence.'
     },
     {
-      icon: Zap,
-      title: 'Develop Skills',
-      description: 'Gain experience in technology, organizing, and nonprofit management.'
+      question: 'Can I upgrade or downgrade my plan anytime?',
+      answer: 'Yes, you can change your plan at any time. Upgrades take effect immediately, and downgrades take effect at the end of your current billing cycle.'
     },
     {
-      icon: Award,
-      title: 'Recognition',
-      description: 'Get recognized for your contributions and build your professional portfolio.'
+      question: 'Do you offer discounts for nonprofits?',
+      answer: 'Yes, we offer special pricing for qualified nonprofits and social justice organizations. Contact us to learn more about our nonprofit discount program.'
+    },
+    {
+      question: 'What payment methods do you accept?',
+      answer: 'We accept all major credit cards and debit cards through our secure payment processor. We also offer invoice billing for Enterprise customers.'
+    },
+    {
+      question: 'Is there a setup fee?',
+      answer: 'No, there are no setup fees for any of our plans. You only pay the monthly or yearly subscription fee.'
     }
   ];
 
-  const testimonials = [
-    {
-      quote: "Volunteering with ACTTogether.us has been incredibly rewarding. I've been able to use my tech skills to help organizations I care about while learning about organizing.",
-      author: "Alex Chen",
-      role: "Volunteer Developer"
-    },
-    {
-      quote: "The community organizer role has allowed me to share my campaign experience while helping other organizers succeed. It's been a perfect fit.",
-      author: "Maria Rodriguez",
-      role: "Community Organizer"
+  const handleCheckoutSuccess = () => {
+    setCheckoutMessage({ type: 'success', text: 'Redirecting to checkout...' });
+  };
+
+  const handleCheckoutError = (error: string) => {
+    setCheckoutMessage({ type: 'error', text: error });
+  };
+
+  const handlePlanSelection = (plan: any) => {
+    if (plan.isFree) {
+      window.location.href = '/signup';
+    } else if (plan.id === 'professional' && user) {
+      setShowCheckout(true);
+    } else if (plan.id === 'enterprise') {
+      window.location.href = 'mailto:sales@acttogether.us?subject=Enterprise Plan Inquiry';
+    } else if (!user) {
+      window.location.href = '/signup';
     }
-  ];
+  };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-200">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-gray-50 to-blue-50 py-20">
+      <section className="bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-900/20 py-20 transition-colors duration-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-              Volunteer with
+            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6 transition-colors duration-200">
+              Simple, Transparent
               <span className="bg-gradient-to-r from-act-teal-600 to-blue-600 bg-clip-text text-transparent block">
-                ACTTogether.us
+                Pricing
               </span>
             </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Join our mission to empower organizations creating positive change. Use your skills to help build tools that amplify grassroots impact.
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto transition-colors duration-200">
+              Choose the plan that fits your organization. Start free and scale as you grow. No hidden fees, no long-term contracts.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            <div className="bg-white rounded-xl p-6 shadow-sm text-center">
-              <Globe className="h-12 w-12 text-act-teal-600 mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Remote Opportunities</h3>
-              <p className="text-gray-600">Work from anywhere while making a global impact</p>
+          {/* Billing Toggle */}
+          <div className="flex justify-center mb-12">
+            <div className="bg-white dark:bg-gray-800 rounded-lg p-1 shadow-sm border border-gray-200 dark:border-gray-700 transition-colors duration-200">
+              <button
+                onClick={() => setBillingCycle('monthly')}
+                className={`px-6 py-2 rounded-md font-medium transition-colors ${
+                  billingCycle === 'monthly'
+                    ? 'bg-act-teal-600 text-white'
+                    : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
+                }`}
+              >
+                Monthly
+              </button>
+              <button
+                onClick={() => setBillingCycle('yearly')}
+                className={`px-6 py-2 rounded-md font-medium transition-colors ${
+                  billingCycle === 'yearly'
+                    ? 'bg-act-teal-600 text-white'
+                    : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'
+                }`}
+              >
+                Yearly
+                <span className="ml-2 text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">
+                  Save 20%
+                </span>
+              </button>
             </div>
-            <div className="bg-white rounded-xl p-6 shadow-sm text-center">
-              <Clock className="h-12 w-12 text-act-teal-600 mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Flexible Schedule</h3>
-              <p className="text-gray-600">Contribute on your own time with flexible commitments</p>
+          </div>
+
+          {/* Quick Stats */}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+            <div className="text-center">
+              <div className="text-3xl font-bold text-act-teal-600 mb-2">0%</div>
+              <div className="text-gray-600 dark:text-gray-300 transition-colors duration-200">Corporate tracking</div>
             </div>
-            <div className="bg-white rounded-xl p-6 shadow-sm text-center">
-              <Heart className="h-12 w-12 text-act-teal-600 mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Meaningful Work</h3>
-              <p className="text-gray-600">Every contribution helps organizations create lasting change</p>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-act-teal-600 mb-2">14 days</div>
+              <div className="text-gray-600 dark:text-gray-300 transition-colors duration-200">Free trial</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-act-teal-600 mb-2">24/7</div>
+              <div className="text-gray-600 dark:text-gray-300 transition-colors duration-200">Support</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-act-teal-600 mb-2">500+</div>
+              <div className="text-gray-600 dark:text-gray-300 transition-colors duration-200">Organizations</div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Volunteer Opportunities */}
-      <section className="py-20 bg-white">
+      {/* Pricing Plans */}
+      <section className="py-20 bg-white dark:bg-gray-900 transition-colors duration-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Current Volunteer Opportunities
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Find the perfect way to contribute your skills and passion to our mission.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {opportunities.map((opportunity) => (
-              <div key={opportunity.id} className="bg-gray-50 rounded-xl p-8 hover:shadow-md transition-shadow">
-                <div className="flex items-start space-x-4 mb-6">
-                  <div className="bg-act-teal-100 rounded-lg p-3">
-                    <opportunity.icon className="h-8 w-8 text-act-teal-600" />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {plans.map((plan) => (
+              <div 
+                key={plan.id}
+                className={`rounded-2xl p-8 ${
+                  plan.popular 
+                    ? 'bg-act-teal-600 text-white shadow-2xl scale-105' 
+                    : 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-lg'
+                } ${selectedPlan === plan.id ? 'ring-4 ring-act-teal-300' : ''} cursor-pointer transition-all duration-200`}
+                onClick={() => setSelectedPlan(plan.id)}
+              >
+                {plan.popular && (
+                  <div className="text-center mb-4">
+                    <span className="bg-yellow-400 text-gray-900 px-4 py-1 rounded-full text-sm font-semibold">
+                      Most Popular
+                    </span>
                   </div>
-                  <div className="flex-1">
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">
-                      {opportunity.title}
-                    </h3>
-                    <div className="flex flex-wrap gap-2 mb-3">
-                      <span className="bg-act-teal-100 text-act-teal-700 px-3 py-1 rounded-full text-sm">
-                        {opportunity.type}
+                )}
+
+                {plan.isFree && (
+                  <div className="text-center mb-4">
+                    <span className="bg-green-400 text-gray-900 px-4 py-1 rounded-full text-sm font-semibold">
+                      Free Forever
+                    </span>
+                  </div>
+                )}
+                
+                <div className="text-center mb-8">
+                  <h3 className={`text-2xl font-bold mb-2 ${plan.popular ? 'text-white' : 'text-gray-900 dark:text-white'} transition-colors duration-200`}>
+                    {plan.name}
+                  </h3>
+                  <div className="mb-4">
+                    <span className={`text-4xl font-bold ${plan.popular ? 'text-white' : 'text-gray-900 dark:text-white'} transition-colors duration-200`}>
+                      {plan.price[billingCycle]}
+                    </span>
+                    {!plan.isFree && plan.price[billingCycle] !== 'Custom' && (
+                      <span className={`text-lg ${plan.popular ? 'text-blue-100' : 'text-gray-600 dark:text-gray-300'} transition-colors duration-200`}>
+                        /{billingCycle === 'monthly' ? 'month' : 'year'}
                       </span>
-                      <span className="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm">
-                        {opportunity.location}
-                      </span>
-                      <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm">
-                        {opportunity.commitment}
+                    )}
+                  </div>
+                  {plan.savings && billingCycle === 'yearly' && (
+                    <div className="mb-2">
+                      <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
+                        {plan.savings}
                       </span>
                     </div>
-                    <p className="text-gray-600 mb-4">
-                      {opportunity.description}
-                    </p>
-                  </div>
+                  )}
+                  <p className={`${plan.popular ? 'text-blue-100' : 'text-gray-600 dark:text-gray-300'} transition-colors duration-200`}>
+                    {plan.description}
+                  </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                  <div>
-                    <h4 className="font-semibold text-gray-900 mb-3">Responsibilities:</h4>
-                    <ul className="space-y-2">
-                      {opportunity.responsibilities.map((resp, index) => (
-                        <li key={index} className="flex items-start space-x-2">
-                          <CheckCircle className="h-4 w-4 text-act-teal-600 mt-1 flex-shrink-0" />
-                          <span className="text-gray-600 text-sm">{resp}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900 mb-3">Qualifications:</h4>
-                    <ul className="space-y-2">
-                      {opportunity.qualifications.map((qual, index) => (
-                        <li key={index} className="flex items-start space-x-2">
-                          <CheckCircle className="h-4 w-4 text-act-teal-600 mt-1 flex-shrink-0" />
-                          <span className="text-gray-600 text-sm">{qual}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
+                <ul className="space-y-3 mb-8">
+                  {plan.features.map((feature, index) => (
+                    <li key={index} className="flex items-center space-x-3">
+                      <CheckCircle className={`h-5 w-5 ${plan.popular ? 'text-blue-200' : 'text-act-teal-600'} flex-shrink-0`} />
+                      <span className={`${plan.popular ? 'text-blue-100' : 'text-gray-700 dark:text-gray-300'} transition-colors duration-200`}>
+                        {feature}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
 
                 <button 
-                  onClick={() => setSelectedRole(opportunity.id)}
-                  className="w-full bg-act-teal-600 text-white py-3 rounded-lg font-semibold hover:bg-act-teal-700 transition-colors"
+                  onClick={() => handlePlanSelection(plan)}
+                  className={`w-full py-3 px-6 rounded-lg font-semibold transition-colors ${
+                    plan.popular 
+                      ? 'bg-white text-act-teal-600 hover:bg-gray-100' 
+                      : 'bg-act-teal-600 text-white hover:bg-act-teal-700'
+                  }`}
                 >
-                  Apply for This Role
+                  {plan.cta}
                 </button>
               </div>
             ))}
@@ -257,29 +328,62 @@ function Volunteer() {
         </div>
       </section>
 
-      {/* Benefits */}
-      <section className="py-20 bg-gray-50">
+      {/* Stripe Checkout Section */}
+      {user && showCheckout && (
+        <section className="py-20 bg-gray-50 dark:bg-gray-800 transition-colors duration-200">
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="bg-white dark:bg-gray-900 rounded-2xl p-8 shadow-lg transition-colors duration-200">
+              <div className="text-center mb-8">
+                <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4 transition-colors duration-200">
+                  Complete Your Subscription
+                </h2>
+                <p className="text-gray-600 dark:text-gray-300 transition-colors duration-200">
+                  Choose your subscription plan and start organizing today.
+                </p>
+              </div>
+
+              {checkoutMessage && (
+                <div className={`mb-6 p-4 rounded-lg ${
+                  checkoutMessage.type === 'success' 
+                    ? 'bg-green-50 border border-green-200 text-green-800' 
+                    : 'bg-red-50 border border-red-200 text-red-800'
+                }`}>
+                  {checkoutMessage.text}
+                </div>
+              )}
+
+              <StripeCheckout 
+                onSuccess={handleCheckoutSuccess}
+                onError={handleCheckoutError}
+              />
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Features Comparison */}
+      <section className="py-20 bg-gray-50 dark:bg-gray-800 transition-colors duration-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Why Volunteer with Us?
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4 transition-colors duration-200">
+              Why Choose ACTTogether.us?
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Beyond the satisfaction of contributing to meaningful work, here's what you'll gain.
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto transition-colors duration-200">
+              Privacy-first organizing tools designed specifically for mission-driven organizations.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {benefits.map((benefit, index) => (
-              <div key={index} className="bg-white rounded-xl p-6 text-center shadow-sm">
-                <div className="bg-act-teal-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                  <benefit.icon className="h-8 w-8 text-act-teal-600" />
+            {features.map((feature, index) => (
+              <div key={index} className="bg-white dark:bg-gray-900 rounded-xl p-6 text-center shadow-sm transition-colors duration-200">
+                <div className="bg-act-teal-100 dark:bg-act-teal-900/30 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 transition-colors duration-200">
+                  <feature.icon className="h-8 w-8 text-act-teal-600" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                  {benefit.title}
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3 transition-colors duration-200">
+                  {feature.title}
                 </h3>
-                <p className="text-gray-600">
-                  {benefit.description}
+                <p className="text-gray-600 dark:text-gray-300 transition-colors duration-200">
+                  {feature.description}
                 </p>
               </div>
             ))}
@@ -287,128 +391,111 @@ function Volunteer() {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-20 bg-white">
+      {/* FAQ Section */}
+      <section className="py-20 bg-white dark:bg-gray-900 transition-colors duration-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Volunteer Stories
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4 transition-colors duration-200">
+              Frequently Asked Questions
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Hear from current volunteers about their experience with ACTTogether.us.
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto transition-colors duration-200">
+              Have questions about our pricing? We've got answers.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            {testimonials.map((testimonial, index) => (
-              <div key={index} className="bg-gray-50 rounded-xl p-8">
-                <blockquote className="text-gray-700 mb-6 italic">
-                  "{testimonial.quote}"
-                </blockquote>
-                <div>
-                  <div className="font-semibold text-gray-900">{testimonial.author}</div>
-                  <div className="text-sm text-act-teal-600">{testimonial.role}</div>
+          <div className="max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {faqs.map((faq, index) => (
+                <div key={index} className="bg-gray-50 dark:bg-gray-800 rounded-xl p-6 transition-colors duration-200">
+                  <div className="flex items-start space-x-3">
+                    <HelpCircle className="h-6 w-6 text-act-teal-600 mt-1 flex-shrink-0" />
+                    <div>
+                      <h3 className="font-semibold text-gray-900 dark:text-white mb-2 transition-colors duration-200">
+                        {faq.question}
+                      </h3>
+                      <p className="text-gray-600 dark:text-gray-300 transition-colors duration-200">
+                        {faq.answer}
+                      </p>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Application Process */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              How to Get Started
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Ready to join our volunteer team? Here's how the process works.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="bg-act-teal-600 text-white rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-4 text-xl font-bold">
-                1
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Apply</h3>
-              <p className="text-gray-600">Submit your application for the role that interests you most</p>
-            </div>
-            <div className="text-center">
-              <div className="bg-act-teal-600 text-white rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-4 text-xl font-bold">
-                2
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Interview</h3>
-              <p className="text-gray-600">Have a casual conversation with our team about your interests and skills</p>
-            </div>
-            <div className="text-center">
-              <div className="bg-act-teal-600 text-white rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-4 text-xl font-bold">
-                3
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Onboard</h3>
-              <p className="text-gray-600">Get oriented with our mission, tools, and volunteer community</p>
-            </div>
-            <div className="text-center">
-              <div className="bg-act-teal-600 text-white rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-4 text-xl font-bold">
-                4
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Contribute</h3>
-              <p className="text-gray-600">Start making an impact with your first volunteer project</p>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Contact Section */}
+      {/* Enterprise CTA */}
       <section className="py-20 bg-act-teal-600">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Questions About Volunteering?
+              Need a Custom Solution?
             </h2>
             <p className="text-xl text-blue-100 max-w-3xl mx-auto mb-8">
-              We'd love to hear from you. Reach out with any questions about volunteer opportunities.
+              Our Enterprise plan offers custom integrations, dedicated support, and tailored features for large organizations.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <div className="bg-white rounded-xl p-8">
-              <Mail className="h-8 w-8 text-act-teal-600 mb-4" />
-              <h3 className="text-xl font-bold text-gray-900 mb-2">Email Us</h3>
-              <p className="text-gray-600 mb-4">
-                Send us your questions or application directly via email.
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+            <div className="bg-white bg-opacity-10 rounded-xl p-6 text-center">
+              <Server className="h-8 w-8 text-white mx-auto mb-4" />
+              <h3 className="text-lg font-bold text-white mb-2">Custom Setup</h3>
+              <p className="text-blue-100 text-sm">
+                Tailored configuration for your organization's specific needs
               </p>
-              <a 
-                href="mailto:volunteers@acttogether.us"
-                className="text-act-teal-600 hover:text-act-teal-700 font-semibold"
-              >
-                volunteers@acttogether.us
-              </a>
             </div>
             
-            <div className="bg-white rounded-xl p-8">
-              <Calendar className="h-8 w-8 text-act-teal-600 mb-4" />
-              <h3 className="text-xl font-bold text-gray-900 mb-2">Schedule a Call</h3>
-              <p className="text-gray-600 mb-4">
-                Book a 15-minute call to learn more about volunteer opportunities.
+            <div className="bg-white bg-opacity-10 rounded-xl p-6 text-center">
+              <Users className="h-8 w-8 text-white mx-auto mb-4" />
+              <h3 className="text-lg font-bold text-white mb-2">Dedicated Support</h3>
+              <p className="text-blue-100 text-sm">
+                Personal account manager and priority technical support
               </p>
-              <Link 
-                to="/get-started"
-                className="text-act-teal-600 hover:text-act-teal-700 font-semibold"
-              >
-                Schedule a call →
-              </Link>
+            </div>
+            
+            <div className="bg-white bg-opacity-10 rounded-xl p-6 text-center">
+              <Shield className="h-8 w-8 text-white mx-auto mb-4" />
+              <h3 className="text-lg font-bold text-white mb-2">Enhanced Security</h3>
+              <p className="text-blue-100 text-sm">
+                Advanced security features and compliance options
+              </p>
             </div>
           </div>
 
           <div className="text-center mt-12">
-            <Link 
-              to="/get-started"
+            <a 
+              href="mailto:sales@acttogether.us?subject=Enterprise Plan Inquiry"
               className="bg-white text-act-teal-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-flex items-center space-x-2"
             >
-              <span>Apply to Volunteer</span>
-              <ArrowRight className="h-4 w-4" />
+              <Mail className="h-5 w-5" />
+              <span>Contact Sales</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA */}
+      <section className="py-20 bg-white dark:bg-gray-900 transition-colors duration-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6 transition-colors duration-200">
+            Ready to start organizing?
+          </h2>
+          <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto transition-colors duration-200">
+            Join hundreds of organizations using ACTTogether.us to create lasting change.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link 
+              to="/signup"
+              className="bg-act-teal-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-act-teal-700 transition-colors"
+            >
+              Start Free Today
+            </Link>
+            <Link 
+              to="/platform"
+              className="border border-act-teal-600 text-act-teal-600 dark:text-act-teal-400 px-8 py-4 rounded-lg font-semibold hover:bg-blue-50 dark:hover:bg-gray-800 transition-colors"
+            >
+              Explore Platform
             </Link>
           </div>
         </div>
@@ -417,4 +504,4 @@ function Volunteer() {
   );
 }
 
-export default Volunteer;
+export default Pricing;
