@@ -468,7 +468,7 @@ function Platform() {
               to="/get-started"
               className="bg-white text-act-teal-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
             >
-              Join Our Instance
+              Join Us
             </Link>
             <a
               href="https://mobilizon.org"
