@@ -53,13 +53,13 @@ function GetStarted() {
     {
       id: 'professional',
       name: 'Professional',
-      price: '$99',
+      price: '$10 per 1000',
       period: '/month',
       description: 'For growing organizations with regular activities',
       features: [
         'Unlimited team members',
         'Unlimited events/actions',
-        'Unlimited signups',
+        '1000 signups',
         'Advanced analytics & reporting',
         'Priority support',
         'Custom branding',
