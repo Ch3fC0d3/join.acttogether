@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, User, LogOut, Settings } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import { SubscriptionStatus } from './SubscriptionStatus';
+import { ThemeToggle } from './ThemeToggle';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -22,27 +23,27 @@ function Layout({ children }: LayoutProps) {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-200">
       {/* Decorative Background Shapes */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         {/* Large circle - top right */}
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-purple-200 to-blue-200 rounded-full opacity-30"></div>
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-purple-200 to-blue-200 dark:from-purple-900/20 dark:to-blue-900/20 rounded-full opacity-30"></div>
         
         {/* Medium circle - middle left */}
-        <div className="absolute top-1/2 -left-32 w-64 h-64 bg-gradient-to-br from-teal-200 to-green-200 rounded-full opacity-25"></div>
+        <div className="absolute top-1/2 -left-32 w-64 h-64 bg-gradient-to-br from-teal-200 to-green-200 dark:from-teal-900/20 dark:to-green-900/20 rounded-full opacity-25"></div>
         
         {/* Small circle - bottom right */}
-        <div className="absolute bottom-20 right-20 w-32 h-32 bg-gradient-to-br from-yellow-200 to-orange-200 rounded-full opacity-20"></div>
+        <div className="absolute bottom-20 right-20 w-32 h-32 bg-gradient-to-br from-yellow-200 to-orange-200 dark:from-yellow-900/20 dark:to-orange-900/20 rounded-full opacity-20"></div>
         
         {/* Triangle shape - top left */}
-        <div className="absolute top-20 left-20 w-0 h-0 border-l-[60px] border-r-[60px] border-b-[100px] border-l-transparent border-r-transparent border-b-purple-200 opacity-20 rotate-12"></div>
+        <div className="absolute top-20 left-20 w-0 h-0 border-l-[60px] border-r-[60px] border-b-[100px] border-l-transparent border-r-transparent border-b-purple-200 dark:border-b-purple-900/20 opacity-20 rotate-12"></div>
         
         {/* Rectangle - middle right */}
-        <div className="absolute top-1/3 right-10 w-24 h-40 bg-gradient-to-b from-blue-200 to-teal-200 rounded-lg opacity-15 rotate-45"></div>
+        <div className="absolute top-1/3 right-10 w-24 h-40 bg-gradient-to-b from-blue-200 to-teal-200 dark:from-blue-900/20 dark:to-teal-900/20 rounded-lg opacity-15 rotate-45"></div>
       </div>
 
       {/* Navigation */}
-      <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
+      <nav className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-50 transition-colors duration-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             <div className="flex items-center">
@@ -64,7 +65,7 @@ function Layout({ children }: LayoutProps) {
                   className={`px-3 py-2 text-sm font-medium transition-colors ${
                     isActive('/solutions') 
                       ? 'text-act-teal-600 border-b-2 border-act-teal-600' 
-                      : 'text-gray-700 hover:text-act-teal-600'
+                      : 'text-gray-700 dark:text-gray-300 hover:text-act-teal-600 dark:hover:text-act-teal-400'
                   }`}
                 >
                   Solutions
@@ -74,7 +75,7 @@ function Layout({ children }: LayoutProps) {
                   className={`px-3 py-2 text-sm font-medium transition-colors ${
                     isActive('/platform') 
                       ? 'text-act-teal-600 border-b-2 border-act-teal-600' 
-                      : 'text-gray-700 hover:text-act-teal-600'
+                      : 'text-gray-700 dark:text-gray-300 hover:text-act-teal-600 dark:hover:text-act-teal-400'
                   }`}
                 >
                   Platform
@@ -84,7 +85,7 @@ function Layout({ children }: LayoutProps) {
                   className={`px-3 py-2 text-sm font-medium transition-colors ${
                     isActive('/why') 
                       ? 'text-act-teal-600 border-b-2 border-act-teal-600' 
-                      : 'text-gray-700 hover:text-act-teal-600'
+                      : 'text-gray-700 dark:text-gray-300 hover:text-act-teal-600 dark:hover:text-act-teal-400'
                   }`}
                 >
                   Why ACTTogether.us
@@ -94,7 +95,7 @@ function Layout({ children }: LayoutProps) {
                   className={`px-3 py-2 text-sm font-medium transition-colors ${
                     isActive('/volunteer') 
                       ? 'text-act-teal-600 border-b-2 border-act-teal-600' 
-                      : 'text-gray-700 hover:text-act-teal-600'
+                      : 'text-gray-700 dark:text-gray-300 hover:text-act-teal-600 dark:hover:text-act-teal-400'
                   }`}
                 >
                   Volunteer
@@ -104,11 +105,14 @@ function Layout({ children }: LayoutProps) {
                   className={`px-3 py-2 text-sm font-medium transition-colors ${
                     isActive('/resources') 
                       ? 'text-act-teal-600 border-b-2 border-act-teal-600' 
-                      : 'text-gray-700 hover:text-act-teal-600'
+                      : 'text-gray-700 dark:text-gray-300 hover:text-act-teal-600 dark:hover:text-act-teal-400'
                   }`}
                 >
                   Resources
                 </Link>
+                
+                {/* Theme Toggle */}
+                <ThemeToggle />
                 
                 {!loading && (
                   <>
@@ -116,28 +120,28 @@ function Layout({ children }: LayoutProps) {
                       <div className="relative">
                         <button
                           onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                          className="flex items-center space-x-2 px-3 py-2 text-sm font-medium text-gray-700 hover:text-act-teal-600 transition-colors"
+                          className="flex items-center space-x-2 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-act-teal-600 dark:hover:text-act-teal-400 transition-colors"
                         >
                           <User className="h-4 w-4" />
                           <span>{user.email}</span>
                         </button>
                         
                         {isUserMenuOpen && (
-                          <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
-                            <div className="px-4 py-2 text-sm text-gray-700 border-b">
+                          <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg py-1 z-50 border border-gray-200 dark:border-gray-700">
+                            <div className="px-4 py-2 text-sm text-gray-700 dark:text-gray-300 border-b border-gray-200 dark:border-gray-700">
                               {user.email}
                             </div>
                             <Link
                               to="/account"
                               onClick={() => setIsUserMenuOpen(false)}
-                              className="flex items-center space-x-2 w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                              className="flex items-center space-x-2 w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                             >
                               <Settings className="h-4 w-4" />
                               <span>Account Settings</span>
                             </Link>
                             <button
                               onClick={handleSignOut}
-                              className="flex items-center space-x-2 w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                              className="flex items-center space-x-2 w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
                             >
                               <LogOut className="h-4 w-4" />
                               <span>Sign Out</span>
@@ -152,7 +156,7 @@ function Layout({ children }: LayoutProps) {
                           className={`px-3 py-2 text-sm font-medium transition-colors ${
                             isActive('/login') 
                               ? 'text-act-teal-600 border-b-2 border-act-teal-600' 
-                              : 'text-gray-700 hover:text-act-teal-600'
+                              : 'text-gray-700 dark:text-gray-300 hover:text-act-teal-600 dark:hover:text-act-teal-400'
                           }`}
                         >
                           Login
@@ -170,10 +174,11 @@ function Layout({ children }: LayoutProps) {
               </div>
             </div>
 
-            <div className="md:hidden">
+            <div className="md:hidden flex items-center space-x-2">
+              <ThemeToggle />
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-act-teal-600 hover:bg-gray-100"
+                className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 dark:text-gray-300 hover:text-act-teal-600 dark:hover:text-act-teal-400 hover:bg-gray-100 dark:hover:bg-gray-800"
               >
                 {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
               </button>
@@ -184,13 +189,13 @@ function Layout({ children }: LayoutProps) {
         {/* Mobile menu */}
         {isMenuOpen && (
           <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-gray-200">
+            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
               <Link 
                 to="/solutions" 
                 className={`block px-3 py-2 text-base font-medium ${
                   isActive('/solutions') 
-                    ? 'text-act-teal-600 bg-act-teal-50' 
-                    : 'text-gray-700 hover:text-act-teal-600'
+                    ? 'text-act-teal-600 bg-act-teal-50 dark:bg-act-teal-900/20' 
+                    : 'text-gray-700 dark:text-gray-300 hover:text-act-teal-600 dark:hover:text-act-teal-400'
                 }`}
                 onClick={() => setIsMenuOpen(false)}
               >
@@ -200,8 +205,8 @@ function Layout({ children }: LayoutProps) {
                 to="/platform" 
                 className={`block px-3 py-2 text-base font-medium ${
                   isActive('/platform') 
-                    ? 'text-act-teal-600 bg-act-teal-50' 
-                    : 'text-gray-700 hover:text-act-teal-600'
+                    ? 'text-act-teal-600 bg-act-teal-50 dark:bg-act-teal-900/20' 
+                    : 'text-gray-700 dark:text-gray-300 hover:text-act-teal-600 dark:hover:text-act-teal-400'
                 }`}
                 onClick={() => setIsMenuOpen(false)}
               >
@@ -211,8 +216,8 @@ function Layout({ children }: LayoutProps) {
                 to="/why" 
                 className={`block px-3 py-2 text-base font-medium ${
                   isActive('/why') 
-                    ? 'text-act-teal-600 bg-act-teal-50' 
-                    : 'text-gray-700 hover:text-act-teal-600'
+                    ? 'text-act-teal-600 bg-act-teal-50 dark:bg-act-teal-900/20' 
+                    : 'text-gray-700 dark:text-gray-300 hover:text-act-teal-600 dark:hover:text-act-teal-400'
                 }`}
                 onClick={() => setIsMenuOpen(false)}
               >
@@ -222,8 +227,8 @@ function Layout({ children }: LayoutProps) {
                 to="/volunteer" 
                 className={`block px-3 py-2 text-base font-medium ${
                   isActive('/volunteer') 
-                    ? 'text-act-teal-600 bg-act-teal-50' 
-                    : 'text-gray-700 hover:text-act-teal-600'
+                    ? 'text-act-teal-600 bg-act-teal-50 dark:bg-act-teal-900/20' 
+                    : 'text-gray-700 dark:text-gray-300 hover:text-act-teal-600 dark:hover:text-act-teal-400'
                 }`}
                 onClick={() => setIsMenuOpen(false)}
               >
@@ -233,8 +238,8 @@ function Layout({ children }: LayoutProps) {
                 to="/resources" 
                 className={`block px-3 py-2 text-base font-medium ${
                   isActive('/resources') 
-                    ? 'text-act-teal-600 bg-act-teal-50' 
-                    : 'text-gray-700 hover:text-act-teal-600'
+                    ? 'text-act-teal-600 bg-act-teal-50 dark:bg-act-teal-900/20' 
+                    : 'text-gray-700 dark:text-gray-300 hover:text-act-teal-600 dark:hover:text-act-teal-400'
                 }`}
                 onClick={() => setIsMenuOpen(false)}
               >
@@ -244,13 +249,13 @@ function Layout({ children }: LayoutProps) {
               {!loading && (
                 <>
                   {user ? (
-                    <div className="border-t border-gray-200 pt-4">
-                      <div className="px-3 py-2 text-base font-medium text-gray-700">
+                    <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
+                      <div className="px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-300">
                         {user.email}
                       </div>
                       <Link
                         to="/account"
-                        className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-act-teal-600"
+                        className="block px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-act-teal-600 dark:hover:text-act-teal-400"
                         onClick={() => setIsMenuOpen(false)}
                       >
                         Account Settings
@@ -260,7 +265,7 @@ function Layout({ children }: LayoutProps) {
                           handleSignOut();
                           setIsMenuOpen(false);
                         }}
-                        className="block w-full text-left px-3 py-2 text-base font-medium text-gray-700 hover:text-act-teal-600"
+                        className="block w-full text-left px-3 py-2 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-act-teal-600 dark:hover:text-act-teal-400"
                       >
                         Sign Out
                       </button>
@@ -271,8 +276,8 @@ function Layout({ children }: LayoutProps) {
                         to="/login" 
                         className={`block px-3 py-2 text-base font-medium ${
                           isActive('/login') 
-                            ? 'text-act-teal-600 bg-act-teal-50' 
-                            : 'text-gray-700 hover:text-act-teal-600'
+                            ? 'text-act-teal-600 bg-act-teal-50 dark:bg-act-teal-900/20' 
+                            : 'text-gray-700 dark:text-gray-300 hover:text-act-teal-600 dark:hover:text-act-teal-400'
                         }`}
                         onClick={() => setIsMenuOpen(false)}
                       >
@@ -296,7 +301,7 @@ function Layout({ children }: LayoutProps) {
 
       {/* Subscription Status for authenticated users */}
       {user && (
-        <div className="bg-gray-50 border-b border-gray-200">
+        <div className="bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 transition-colors duration-200">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
             <SubscriptionStatus />
           </div>
@@ -309,7 +314,7 @@ function Layout({ children }: LayoutProps) {
       </main>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-16 relative">
+      <footer className="bg-gray-900 dark:bg-gray-950 text-white py-16 relative transition-colors duration-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
