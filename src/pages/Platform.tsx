@@ -30,13 +30,13 @@ function Platform() {
     {
       id: 'events',
       icon: Calendar,
-      title: 'Federated Events',
+      title: 'Events',
       description: 'Create events that connect across the decentralized network',
       details: {
         headline: 'Privacy-First Event Organization',
         description: 'Create and manage events without corporate surveillance or algorithmic manipulation.',
         features: [
-          'Federated event discovery',
+          'Event discovery',
           'Privacy-protected RSVPs',
           'No tracking or data mining',
           'Community-controlled moderation',
@@ -62,7 +62,7 @@ function Platform() {
           'Private group communications',
           'Member privacy protection',
           'Democratic group governance',
-          'Federated group discovery',
+          'Group discovery',
           'No algorithmic manipulation',
           'Community-controlled policies'
         ],
@@ -83,7 +83,7 @@ function Platform() {
         description: 'Be part of a global network while keeping control of your community\'s data.',
         features: [
           'Cross-instance event sharing',
-          'Federated group discovery',
+          'Group discovery',
           'Decentralized infrastructure',
           'No single point of failure',
           'Community-to-community connections',
@@ -134,7 +134,7 @@ function Platform() {
     },
     {
       icon: Globe,
-      title: 'Federated Network',
+      title: 'Community Network',
       description: 'Connect with organizers worldwide while maintaining local community control'
     },
     {
@@ -313,7 +313,7 @@ function Platform() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Why Choose Federated Organizing?
+              Why Choose ActTogether?
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Mobilizon offers everything corporate platforms do, but with privacy, community control, and movement values.
@@ -386,7 +386,7 @@ function Platform() {
               Corporate Platforms vs. Mobilizon
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              See why organizers are choosing federated platforms over corporate alternatives.
+              See why organizers are choosing ActTogether over corporate alternatives.
             </p>
           </div>
 
