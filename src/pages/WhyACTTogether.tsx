@@ -102,7 +102,7 @@ function WhyACTTogether() {
     {
       year: '2019',
       title: 'Mobilizon Launched',
-      description: 'Framasoft releases Mobilizon as a federated alternative to Facebook Events.'
+      description: 'Framasoft releases Mobilizon as an alternative to Facebook Events.'
     },
     {
       year: '2020',
@@ -166,10 +166,10 @@ function WhyACTTogether() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              What is Mobilizon?
+              What is ActTogether?
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              ActTogether.us alternative to Facebook Events and corporate event platforms.
+              ActTogether.us is an alternative to Facebook Events and corporate event platforms.
             </p>
           </div>
 
@@ -231,7 +231,7 @@ function WhyACTTogether() {
               Benefits of Our Instance
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              ACTTogether.us combines all the benefits of Mobilizon with a focus on social justice organizing.
+              ACTTogether.us combines all the benefits of Facebook or Google with a focus on social justice organizing.
             </p>
           </div>
 
@@ -307,7 +307,7 @@ function WhyACTTogether() {
               The Mobilizon Story
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              From concept to global federation - how Mobilizon is changing organizing.
+              From concept to global federation - how ActTogether is changing organizing.
             </p>
           </div>
 
@@ -431,7 +431,7 @@ function WhyACTTogether() {
               rel="noopener noreferrer"
               className="border border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-act-teal-600 transition-colors"
             >
-              Learn About Mobilizon
+              Learn Us
             </a>
           </div>
         </div>
