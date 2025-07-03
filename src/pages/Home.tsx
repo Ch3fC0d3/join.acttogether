@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   Play, 
@@ -22,6 +22,35 @@ import {
 
 function Home() {
   const [activeTab, setActiveTab] = useState('nonprofits');
+  const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
+
+  const heroMessages = [
+    {
+      title: "Organize. Mobilize. Act Together.",
+      subtitle: "Because change doesn't happen by itself."
+    },
+    {
+      title: "Your Movement Has a Platform.",
+      subtitle: "ACTTogether gives you the tech to take on power."
+    },
+    {
+      title: "Powerful Action Starts With Us.",
+      subtitle: "Resources. Training. Strategy. Community."
+    },
+    {
+      title: "Build a Better World. We've Got the Toolkit.",
+      subtitle: "Petitions, events, data—everything you need to organize."
+    }
+  ];
+
+  // Rotate messages every 4 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentMessageIndex((prev) => (prev + 1) % heroMessages.length);
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [heroMessages.length]);
 
   const stats = [
     { number: '30%', label: 'fewer no-shows' },
@@ -86,15 +115,16 @@ function Home() {
       <section className="bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-900/20 py-20 relative transition-colors duration-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6 transition-colors duration-200">
-              Organize without
-              <span className="bg-gradient-to-r from-act-teal-600 to-blue-600 bg-clip-text text-transparent block">
-                surveillance
-              </span>
-            </h1>
-            <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto transition-colors duration-200">
-              A privacy-focused platform for nonprofits, campaigns, unions, and advocacy groups. Built by the movement, for the movement.
-            </p>
+            <div className="min-h-[200px] flex flex-col justify-center">
+              <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6 transition-all duration-500 ease-in-out">
+                <span className="block animate-fade-in">
+                  {heroMessages[currentMessageIndex].title}
+                </span>
+              </h1>
+              <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto transition-all duration-500 ease-in-out animate-slide-up">
+                {heroMessages[currentMessageIndex].subtitle}
+              </p>
+            </div>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
               <Link 
@@ -107,6 +137,22 @@ function Home() {
                 <Play className="h-5 w-5 group-hover:scale-110 transition-transform" />
                 <span>See How It Works</span>
               </button>
+            </div>
+
+            {/* Message Indicators */}
+            <div className="flex justify-center space-x-2 mb-12">
+              {heroMessages.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentMessageIndex(index)}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    index === currentMessageIndex 
+                      ? 'bg-act-teal-600 scale-125' 
+                      : 'bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500'
+                  }`}
+                  aria-label={`Show message ${index + 1}`}
+                />
+              ))}
             </div>
 
             {/* Core Values */}
