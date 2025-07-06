@@ -36,13 +36,13 @@ function Pricing() {
   const plans = [
     {
       id: 'starter',
-      name: 'Community',
+      name: 'Starter',
       price: 'Free',
-      description: 'Perfect for small organizations getting started',
+      description: 'Small groups / grassroots organizing',
       features: [
-        'Up to 5 team members',
-        '5 events/actions per month',
-        'Max 50 signups per event',
+        'Up to 200 contacts',
+        '2 admins',
+        '3 events per month',
         'Basic privacy protection',
         'Community support',
         'Federated event sharing',
@@ -50,7 +50,7 @@ function Pricing() {
         'Email support'
       ],
       limitations: [
-        'Limited to 500 petition signatures',
+        'Limited to 200 contacts',
         'Basic customization options',
         'Standard support response time'
       ],
@@ -59,15 +59,15 @@ function Pricing() {
       isFree: true
     },
     {
-      id: 'professional',
-      name: 'Movement',
-      price: '$10 per 1000',
+      id: 'organize',
+      name: 'Organize',
+      price: '$19',
       period: '/month',
-      description: 'For growing organizations with regular activities',
+      description: 'Local chapters, student groups',
       features: [
-        'Unlimited team members',
+        '1,000 contacts',
+        '5 admins',
         'Unlimited events/actions',
-        '1000 signups included',
         'Advanced privacy features',
         'Priority support',
         'Custom branding',
@@ -84,20 +84,43 @@ function Pricing() {
       isFree: false
     },
     {
-      id: 'enterprise',
-      name: 'Federation',
-      price: 'Custom',
-      description: 'For large organizations with complex needs',
+      id: 'resist',
+      name: 'Resist+',
+      price: '$39',
+      period: '/month',
+      description: 'State orgs, growing networks',
       features: [
-        'Everything in Movement',
-        'Custom setup',
-        'Dedicated federation support',
-        'SLA guarantees',
+        '5,000 contacts',
+        'Unlimited admins',
+        'Text/email alerts',
+        'Integrations',
+        'Everything in Organize',
         'Advanced security features',
-        'Custom training sessions',
-        'White-label options',
+        'Priority support',
+        'Advanced automation',
+        'Custom reporting'
+      ],
+      limitations: [],
+      cta: 'Start 14-Day Trial',
+      popular: false,
+      isFree: false
+    },
+    {
+      id: 'uprising',
+      name: 'Uprising Pro',
+      price: '$69',
+      period: '/month',
+      description: 'National orgs',
+      features: [
+        '10,000+ contacts',
         'API access',
-        'Custom reporting',
+        'White-label options',
+        'Priority support',
+        'Everything in Resist+',
+        'Custom integrations',
+        'Dedicated account manager',
+        'SLA guarantees',
+        'Custom training sessions'
         'Custom integrations',
         'Priority feature development'
       ],
@@ -176,9 +199,9 @@ function Pricing() {
   const handlePlanSelection = (plan: any) => {
     if (plan.isFree) {
       window.location.href = '/signup';
-    } else if (plan.id === 'professional' && user) {
+    } else if ((plan.id === 'organize' || plan.id === 'resist') && user) {
       setShowCheckout(true);
-    } else if (plan.id === 'enterprise') {
+    } else if (plan.id === 'uprising') {
       window.location.href = 'mailto:sales@acttogether.us?subject=Enterprise Plan Inquiry';
     } else if (!user) {
       window.location.href = '/signup';

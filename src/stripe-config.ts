@@ -7,9 +7,15 @@ export interface StripeProduct {
 
 export const stripeProducts: StripeProduct[] = [
   {
-    priceId: 'price_1RgVG6CG2s0leNjxo9iV74TW',
-    name: 'ACTTogether',
-    description: 'ACTTOGETHER Monthly Charge 10 per 1000',
+    priceId: 'price_organize_monthly', // You'll need to update this with actual Stripe price ID
+    name: 'Organize',
+    description: 'Local chapters, student groups - $19/month',
+    mode: 'subscription'
+  },
+  {
+    priceId: 'price_resist_monthly', // You'll need to update this with actual Stripe price ID
+    name: 'Resist+',
+    description: 'State orgs, growing networks - $39/month',
     mode: 'subscription'
   }
 ];
