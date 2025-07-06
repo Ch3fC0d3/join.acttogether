@@ -120,7 +120,7 @@ function Pricing() {
         'Custom integrations',
         'Dedicated account manager',
         'SLA guarantees',
-        'Custom training sessions'
+        'Custom training sessions',
         'Custom integrations',
         'Priority feature development'
       ],
