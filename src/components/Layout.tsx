@@ -158,7 +158,7 @@ function Layout({ children }: LayoutProps) {
                               ? 'text-act-teal-600 border-b-2 border-act-teal-600' 
                               : 'text-gray-700 dark:text-gray-300 hover:text-act-teal-600 dark:hover:text-act-teal-400'
                           }`}
-        {!loading && user && (
+                        >
                           Login
                         </Link>
                         <Link 
