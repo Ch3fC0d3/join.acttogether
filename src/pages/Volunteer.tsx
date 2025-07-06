@@ -128,6 +128,34 @@ function Pricing() {
       cta: 'Contact Sales',
       popular: false,
       isFree: false
+    },
+    {
+      id: 'federated',
+      name: 'Federated',
+      price: '$99',
+      period: '/month',
+      description: 'Multi-instance networks, custom federation',
+      features: [
+        '25,000+ contacts',
+        'Multi-instance management',
+        'Custom federation rules',
+        'Cross-instance analytics',
+        'Everything in Uprising Pro',
+        'Custom instance branding',
+        'Advanced federation controls',
+        'Multi-tenant architecture',
+        'Custom domain mapping',
+        'Enterprise SSO integration',
+        'Advanced security controls',
+        'Custom API endpoints',
+        'Dedicated infrastructure',
+        'White-glove onboarding',
+        '24/7 priority support'
+      ],
+      limitations: [],
+      cta: 'Contact Sales',
+      popular: false,
+      isFree: false
     }
   ];
 
@@ -201,7 +229,7 @@ function Pricing() {
       window.location.href = '/signup';
     } else if ((plan.id === 'organize' || plan.id === 'resist') && user) {
       setShowCheckout(true);
-    } else if (plan.id === 'uprising') {
+    } else if (plan.id === 'uprising' || plan.id === 'federated') {
       window.location.href = 'mailto:sales@acttogether.us?subject=Enterprise Plan Inquiry';
     } else if (!user) {
       window.location.href = '/signup';
@@ -291,7 +319,7 @@ function Pricing() {
             {plans.map((plan) => (
               <div 
                 key={plan.id}
-                className={`rounded-2xl p-8 ${
+                className={`rounded-2xl p-8 ${plan.id === 'federated' ? 'md:col-span-3 lg:col-span-1' : ''} ${
                   plan.popular 
                     ? 'bg-act-teal-600 text-white shadow-2xl scale-105' 
                     : 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-lg'
@@ -310,6 +338,14 @@ function Pricing() {
                   <div className="text-center mb-4">
                     <span className="bg-green-400 text-gray-900 px-4 py-1 rounded-full text-sm font-semibold">
                       Free Forever
+                    </span>
+                  </div>
+                )}
+
+                {plan.id === 'federated' && (
+                  <div className="text-center mb-4">
+                    <span className="bg-purple-400 text-gray-900 px-4 py-1 rounded-full text-sm font-semibold">
+                      Enterprise Federation
                     </span>
                   </div>
                 )}

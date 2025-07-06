@@ -112,6 +112,29 @@ function GetStarted() {
       cta: 'Contact Sales',
       popular: false,
       isFree: false
+    },
+    {
+      id: 'federated',
+      name: 'Federated',
+      price: '$99',
+      period: '/month',
+      description: 'Multi-instance networks',
+      features: [
+        '25,000+ contacts',
+        'Multi-instance management',
+        'Custom federation rules',
+        'Cross-instance analytics',
+        'Everything in Uprising Pro',
+        'Custom instance branding',
+        'Advanced federation controls',
+        'Enterprise SSO integration',
+        'Dedicated infrastructure',
+        '24/7 priority support'
+      ],
+      limitations: [],
+      cta: 'Contact Sales',
+      popular: false,
+      isFree: false
     }
   ];
 
@@ -136,7 +159,7 @@ function GetStarted() {
       window.location.href = '/signup';
     } else if ((plan.id === 'organize' || plan.id === 'resist') && user) {
       setShowCheckout(true);
-    } else if (plan.id === 'uprising') {
+    } else if (plan.id === 'uprising' || plan.id === 'federated') {
       window.location.href = 'mailto:sales@acttogether.us?subject=Uprising Pro Plan Inquiry';
     } else if (!user) {
       // Redirect to signup for non-authenticated users
