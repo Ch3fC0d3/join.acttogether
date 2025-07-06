@@ -38,6 +38,7 @@ export function SubscriptionStatus() {
         .from('stripe_customers')
         .select('customer_id')
         .eq('user_id', user.id)
+        .is('deleted_at', null)
         .maybeSingle();
 
       if (!existingCustomer) {
@@ -84,6 +85,8 @@ export function SubscriptionStatus() {
   };
 
   const fetchSubscription = async () => {
+    if (!user) return;
+    
     try {
       setLoading(true);
       setError(null);

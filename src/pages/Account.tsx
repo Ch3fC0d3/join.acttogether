@@ -79,15 +79,19 @@ function Account() {
   });
 
   useEffect(() => {
-    if (!user) {
+    if (!loading && !user) {
       navigate('/login');
       return;
     }
 
-    fetchUserData();
+    if (user) {
+      fetchUserData();
+    }
   }, [user, navigate]);
 
   const fetchUserData = async () => {
+    if (!user) return;
+    
     try {
       setLoading(true);
       
