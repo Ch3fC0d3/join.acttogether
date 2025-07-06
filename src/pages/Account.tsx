@@ -14,10 +14,15 @@ import {
   Eye,
   EyeOff,
   Save,
-  X
+  X,
+  ExternalLink,
+  Receipt,
+  Clock,
+  DollarSign
 } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import { supabase } from '../lib/supabase';
+import { getProductByPriceId } from '../stripe-config';
 
 interface UserProfile {
   id: string;
@@ -34,6 +39,19 @@ interface SubscriptionData {
   price_id: string | null;
   current_period_end: number | null;
   cancel_at_period_end: boolean;
+  payment_method_brand: string | null;
+  payment_method_last4: string | null;
+  subscription_id: string | null;
+}
+
+interface OrderData {
+  order_id: number;
+  checkout_session_id: string;
+  amount_total: number;
+  currency: string;
+  payment_status: string;
+  order_status: string;
+  order_date: string;
 }
 
 function Account() {
@@ -41,6 +59,7 @@ function Account() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [subscription, setSubscription] = useState<SubscriptionData | null>(null);
+  const [orders, setOrders] = useState<OrderData[]>([]);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [deleteConfirmText, setDeleteConfirmText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
@@ -75,13 +94,26 @@ function Account() {
       // Fetch subscription data
       const { data: subData, error: subError } = await supabase
         .from('stripe_user_subscriptions')
-        .select('subscription_status, price_id, current_period_end, cancel_at_period_end')
+        .select('subscription_status, price_id, current_period_end, cancel_at_period_end, payment_method_brand, payment_method_last4, subscription_id')
         .maybeSingle();
 
       if (subError && subError.code !== 'PGRST116') {
         console.error('Error fetching subscription:', subError);
       } else {
         setSubscription(subData);
+      }
+
+      // Fetch order history
+      const { data: orderData, error: orderError } = await supabase
+        .from('stripe_user_orders')
+        .select('order_id, checkout_session_id, amount_total, currency, payment_status, order_status, order_date')
+        .order('order_date', { ascending: false })
+        .limit(10);
+
+      if (orderError && orderError.code !== 'PGRST116') {
+        console.error('Error fetching orders:', orderError);
+      } else {
+        setOrders(orderData || []);
       }
 
       // Set profile data from user metadata
@@ -218,7 +250,8 @@ function Account() {
           first_name: user?.user_metadata?.first_name,
           last_name: user?.user_metadata?.last_name
         },
-        subscription: subscription
+        subscription: subscription,
+        orders: orders
       };
 
       const dataStr = JSON.stringify(userData, null, 2);
@@ -239,6 +272,28 @@ function Account() {
     }
   };
 
+  const formatCurrency = (amount: number, currency: string) => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: currency.toUpperCase(),
+    }).format(amount / 100);
+  };
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'active':
+      case 'completed':
+        return 'text-green-600 bg-green-100';
+      case 'past_due':
+      case 'pending':
+        return 'text-yellow-600 bg-yellow-100';
+      case 'canceled':
+      case 'failed':
+        return 'text-red-600 bg-red-100';
+      default:
+        return 'text-gray-600 bg-gray-100';
+    }
+  };
   if (!user) {
     return null;
   }
@@ -251,6 +306,7 @@ function Account() {
     );
   }
 
+  const product = subscription?.price_id ? getProductByPriceId(subscription.price_id) : null;
   return (
     <div className="min-h-screen bg-gray-50 py-12">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -502,6 +558,67 @@ function Account() {
               </div>
             )}
 
+            {/* Order History */}
+            {orders.length > 0 && (
+              <div className="border-b border-gray-200 pb-8">
+                <h2 className="text-xl font-semibold text-gray-900 flex items-center space-x-2 mb-6">
+                  <Receipt className="h-5 w-5" />
+                  <span>Order History</span>
+                </h2>
+                <div className="bg-gray-50 rounded-lg overflow-hidden">
+                  <div className="overflow-x-auto">
+                    <table className="min-w-full divide-y divide-gray-200">
+                      <thead className="bg-gray-100">
+                        <tr>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Order
+                          </th>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Date
+                          </th>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Amount
+                          </th>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Status
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody className="bg-white divide-y divide-gray-200">
+                        {orders.map((order) => (
+                          <tr key={order.order_id} className="hover:bg-gray-50">
+                            <td className="px-6 py-4 whitespace-nowrap">
+                              <div className="text-sm font-medium text-gray-900">
+                                #{order.order_id}
+                              </div>
+                              <div className="text-sm text-gray-500 font-mono">
+                                {order.checkout_session_id.substring(0, 20)}...
+                              </div>
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                              {new Date(order.order_date).toLocaleDateString()}
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap">
+                              <div className="flex items-center space-x-1">
+                                <DollarSign className="h-4 w-4 text-gray-400" />
+                                <span className="text-sm font-medium text-gray-900">
+                                  {formatCurrency(order.amount_total, order.currency)}
+                                </span>
+                              </div>
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap">
+                              <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(order.order_status)}`}>
+                                {order.order_status.charAt(0).toUpperCase() + order.order_status.slice(1)}
+                              </span>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            )}
             {/* Data Management */}
             <div className="border-b border-gray-200 pb-8">
               <h2 className="text-xl font-semibold text-gray-900 flex items-center space-x-2 mb-6">
@@ -512,7 +629,7 @@ function Account() {
                 <div>
                   <h3 className="font-medium text-gray-900 mb-2">Download Your Data</h3>
                   <p className="text-gray-600 text-sm mb-4">
-                    Download a copy of all your personal data stored in our system.
+                    Download a copy of all your personal data including profile, subscription, and order history.
                   </p>
                   <button
                     onClick={downloadUserData}
@@ -534,7 +651,7 @@ function Account() {
               <div className="border border-red-200 rounded-lg p-6 bg-red-50">
                 <h3 className="font-medium text-red-900 mb-2">Delete Account</h3>
                 <p className="text-red-700 text-sm mb-4">
-                  Permanently delete your account and all associated data. This action cannot be undone.
+                  Permanently delete your account, subscription, and all associated data. This action cannot be undone.
                 </p>
                 
                 {!showDeleteConfirm ? (
